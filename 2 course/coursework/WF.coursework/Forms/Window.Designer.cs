@@ -36,11 +36,14 @@ namespace WF.coursework
             this.TSbtnSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.TSbtnExit = new System.Windows.Forms.ToolStripMenuItem();
             this.tpDepartments = new System.Windows.Forms.TabPage();
-            this.btnChange = new System.Windows.Forms.Button();
+            this.btnChangeUserInfo = new System.Windows.Forms.Button();
             this.btnDeleteUser = new System.Windows.Forms.Button();
             this.btnAddUser = new System.Windows.Forms.Button();
             this.gbUsers = new System.Windows.Forms.GroupBox();
-            this.btnClearUser = new System.Windows.Forms.Button();
+            this.btnChangeInfo = new System.Windows.Forms.Button();
+            this.chbManadger = new System.Windows.Forms.CheckBox();
+            this.chbAdmin = new System.Windows.Forms.CheckBox();
+            this.btnNewUser = new System.Windows.Forms.Button();
             this.lblUserID = new System.Windows.Forms.Label();
             this.btn_test = new System.Windows.Forms.Button();
             this.tlpUsers = new System.Windows.Forms.TableLayoutPanel();
@@ -64,11 +67,19 @@ namespace WF.coursework
             this.lblUserDepartment = new System.Windows.Forms.Label();
             this.cbUserDepartment = new System.Windows.Forms.ComboBox();
             this.btnAddDepartment = new System.Windows.Forms.Button();
+            this.tbPassword = new System.Windows.Forms.TextBox();
+            this.lblLogin = new System.Windows.Forms.Label();
+            this.lblPassword = new System.Windows.Forms.Label();
+            this.tbLogin = new System.Windows.Forms.TextBox();
             this.gbDepartment = new System.Windows.Forms.GroupBox();
             this.cbDepartment = new System.Windows.Forms.ComboBox();
             this.lbUsers = new System.Windows.Forms.ListBox();
             this.lblDepartment = new System.Windows.Forms.Label();
             this.tpChart = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddProject = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -138,9 +149,6 @@ namespace WF.coursework
             this.application_for_vacationTableAdapter = new WF.coursework.courseworkDataSetTableAdapters.Application_for_vacationTableAdapter();
             this.fKVacationsApplicationforvacationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.vacationsTableAdapter = new WF.coursework.courseworkDataSetTableAdapters.VacationsTableAdapter();
-            this.btnAddProject = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.tpDepartments.SuspendLayout();
             this.gbUsers.SuspendLayout();
@@ -205,7 +213,7 @@ namespace WF.coursework
             // 
             // tpDepartments
             // 
-            this.tpDepartments.Controls.Add(this.btnChange);
+            this.tpDepartments.Controls.Add(this.btnChangeUserInfo);
             this.tpDepartments.Controls.Add(this.btnDeleteUser);
             this.tpDepartments.Controls.Add(this.btnAddUser);
             this.tpDepartments.Controls.Add(this.gbUsers);
@@ -217,38 +225,39 @@ namespace WF.coursework
             this.tpDepartments.Text = "Подразделения";
             this.tpDepartments.UseVisualStyleBackColor = true;
             // 
-            // btnChange
+            // btnChangeUserInfo
             // 
-            this.btnChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnChange.Enabled = false;
-            this.btnChange.Location = new System.Drawing.Point(104, 380);
-            this.btnChange.Name = "btnChange";
-            this.btnChange.Size = new System.Drawing.Size(93, 25);
-            this.btnChange.TabIndex = 10;
-            this.btnChange.Text = "Изменить";
-            this.btnChange.UseVisualStyleBackColor = true;
-            this.btnChange.Click += new System.EventHandler(this.btnChangeUserInfo_Click);
+            this.btnChangeUserInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnChangeUserInfo.Enabled = false;
+            this.btnChangeUserInfo.Location = new System.Drawing.Point(26, 354);
+            this.btnChangeUserInfo.Name = "btnChangeUserInfo";
+            this.btnChangeUserInfo.Size = new System.Drawing.Size(241, 25);
+            this.btnChangeUserInfo.TabIndex = 10;
+            this.btnChangeUserInfo.Text = "Сохранить изменения";
+            this.btnChangeUserInfo.UseVisualStyleBackColor = true;
+            this.btnChangeUserInfo.Click += new System.EventHandler(this.btnChangeUserInfo_Click);
             // 
             // btnDeleteUser
             // 
             this.btnDeleteUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnDeleteUser.Location = new System.Drawing.Point(203, 380);
+            this.btnDeleteUser.Enabled = false;
+            this.btnDeleteUser.Location = new System.Drawing.Point(26, 385);
             this.btnDeleteUser.Name = "btnDeleteUser";
-            this.btnDeleteUser.Size = new System.Drawing.Size(92, 25);
+            this.btnDeleteUser.Size = new System.Drawing.Size(241, 25);
             this.btnDeleteUser.TabIndex = 9;
-            this.btnDeleteUser.Text = "Удалить";
+            this.btnDeleteUser.Text = "Удалить работника";
             this.btnDeleteUser.UseVisualStyleBackColor = true;
             this.btnDeleteUser.Click += new System.EventHandler(this.btnDeleteUser_Click);
             // 
             // btnAddUser
             // 
             this.btnAddUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddUser.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAddUser.Location = new System.Drawing.Point(6, 380);
+            this.btnAddUser.Enabled = false;
+            this.btnAddUser.Location = new System.Drawing.Point(26, 323);
             this.btnAddUser.Name = "btnAddUser";
-            this.btnAddUser.Size = new System.Drawing.Size(92, 25);
+            this.btnAddUser.Size = new System.Drawing.Size(241, 25);
             this.btnAddUser.TabIndex = 8;
-            this.btnAddUser.Text = "Добавить";
+            this.btnAddUser.Text = "Добавить работника";
             this.btnAddUser.UseVisualStyleBackColor = true;
             this.btnAddUser.Click += new System.EventHandler(this.btnAddUser_Click);
             // 
@@ -256,39 +265,72 @@ namespace WF.coursework
             // 
             this.gbUsers.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbUsers.Controls.Add(this.btnClearUser);
+            this.gbUsers.Controls.Add(this.btnChangeInfo);
+            this.gbUsers.Controls.Add(this.chbManadger);
+            this.gbUsers.Controls.Add(this.chbAdmin);
+            this.gbUsers.Controls.Add(this.btnNewUser);
             this.gbUsers.Controls.Add(this.lblUserID);
             this.gbUsers.Controls.Add(this.btn_test);
             this.gbUsers.Controls.Add(this.tlpUsers);
-            this.gbUsers.Location = new System.Drawing.Point(358, 12);
+            this.gbUsers.Location = new System.Drawing.Point(293, 3);
             this.gbUsers.Name = "gbUsers";
-            this.gbUsers.Size = new System.Drawing.Size(502, 394);
+            this.gbUsers.Size = new System.Drawing.Size(635, 412);
             this.gbUsers.TabIndex = 7;
             this.gbUsers.TabStop = false;
             this.gbUsers.Text = "Данные сотрудника";
             // 
-            // btnClearUser
+            // btnChangeInfo
             // 
-            this.btnClearUser.Location = new System.Drawing.Point(94, 15);
-            this.btnClearUser.Name = "btnClearUser";
-            this.btnClearUser.Size = new System.Drawing.Size(75, 23);
-            this.btnClearUser.TabIndex = 10;
-            this.btnClearUser.Text = "Очистить";
-            this.btnClearUser.UseVisualStyleBackColor = true;
-            this.btnClearUser.Click += new System.EventHandler(this.btnClearUser_Click);
+            this.btnChangeInfo.Location = new System.Drawing.Point(65, 14);
+            this.btnChangeInfo.Name = "btnChangeInfo";
+            this.btnChangeInfo.Size = new System.Drawing.Size(75, 23);
+            this.btnChangeInfo.TabIndex = 16;
+            this.btnChangeInfo.Text = "Изменить";
+            this.btnChangeInfo.UseVisualStyleBackColor = true;
+            this.btnChangeInfo.Click += new System.EventHandler(this.btnChangeInfo_Click);
+            // 
+            // chbManadger
+            // 
+            this.chbManadger.AutoSize = true;
+            this.chbManadger.Location = new System.Drawing.Point(6, 328);
+            this.chbManadger.Name = "chbManadger";
+            this.chbManadger.Size = new System.Drawing.Size(79, 17);
+            this.chbManadger.TabIndex = 12;
+            this.chbManadger.Text = "Менеджер";
+            this.chbManadger.UseVisualStyleBackColor = true;
+            // 
+            // chbAdmin
+            // 
+            this.chbAdmin.AutoSize = true;
+            this.chbAdmin.Location = new System.Drawing.Point(6, 310);
+            this.chbAdmin.Name = "chbAdmin";
+            this.chbAdmin.Size = new System.Drawing.Size(105, 17);
+            this.chbAdmin.TabIndex = 11;
+            this.chbAdmin.Text = "Администратор";
+            this.chbAdmin.UseVisualStyleBackColor = true;
+            // 
+            // btnNewUser
+            // 
+            this.btnNewUser.Location = new System.Drawing.Point(146, 14);
+            this.btnNewUser.Name = "btnNewUser";
+            this.btnNewUser.Size = new System.Drawing.Size(107, 23);
+            this.btnNewUser.TabIndex = 10;
+            this.btnNewUser.Text = "Новый работник";
+            this.btnNewUser.UseVisualStyleBackColor = true;
+            this.btnNewUser.Click += new System.EventHandler(this.btnNewUser_Click);
             // 
             // lblUserID
             // 
             this.lblUserID.AutoSize = true;
-            this.lblUserID.Location = new System.Drawing.Point(9, 19);
+            this.lblUserID.Location = new System.Drawing.Point(3, 19);
             this.lblUserID.Name = "lblUserID";
-            this.lblUserID.Size = new System.Drawing.Size(48, 13);
+            this.lblUserID.Size = new System.Drawing.Size(30, 13);
             this.lblUserID.TabIndex = 9;
-            this.lblUserID.Text = "ID: 9999";
+            this.lblUserID.Text = "ID: 0";
             // 
             // btn_test
             // 
-            this.btn_test.Location = new System.Drawing.Point(11, 260);
+            this.btn_test.Location = new System.Drawing.Point(304, 20);
             this.btn_test.Margin = new System.Windows.Forms.Padding(2);
             this.btn_test.Name = "btn_test";
             this.btn_test.Size = new System.Drawing.Size(102, 19);
@@ -300,10 +342,10 @@ namespace WF.coursework
             // tlpUsers
             // 
             this.tlpUsers.ColumnCount = 4;
-            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.53489F));
-            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60.46511F));
-            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 71F));
-            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 117F));
+            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 85F));
+            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+            this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tlpUsers.Controls.Add(this.btnDeletePost, 3, 4);
             this.tlpUsers.Controls.Add(this.btnDeleteDepartment, 3, 3);
             this.tlpUsers.Controls.Add(this.cbGender, 1, 7);
@@ -324,26 +366,35 @@ namespace WF.coursework
             this.tlpUsers.Controls.Add(this.lblUserDepartment, 0, 3);
             this.tlpUsers.Controls.Add(this.cbUserDepartment, 1, 3);
             this.tlpUsers.Controls.Add(this.btnAddDepartment, 2, 3);
+            this.tlpUsers.Controls.Add(this.tbPassword, 1, 9);
+            this.tlpUsers.Controls.Add(this.lblLogin, 0, 8);
+            this.tlpUsers.Controls.Add(this.lblPassword, 0, 9);
+            this.tlpUsers.Controls.Add(this.tbLogin, 1, 8);
             this.tlpUsers.Location = new System.Drawing.Point(6, 44);
             this.tlpUsers.Name = "tlpUsers";
-            this.tlpUsers.RowCount = 8;
-            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpUsers.RowCount = 10;
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24F));
-            this.tlpUsers.Size = new System.Drawing.Size(384, 211);
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpUsers.Size = new System.Drawing.Size(400, 260);
             this.tlpUsers.TabIndex = 7;
             // 
             // btnDeletePost
             // 
+            this.btnDeletePost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDeletePost.Enabled = false;
-            this.btnDeletePost.Location = new System.Drawing.Point(269, 115);
+            this.btnDeletePost.Location = new System.Drawing.Point(328, 107);
             this.btnDeletePost.Name = "btnDeletePost";
-            this.btnDeletePost.Size = new System.Drawing.Size(65, 19);
+            this.btnDeletePost.Size = new System.Drawing.Size(69, 20);
             this.btnDeletePost.TabIndex = 18;
             this.btnDeletePost.Text = "Удалить";
             this.btnDeletePost.UseVisualStyleBackColor = true;
@@ -351,10 +402,11 @@ namespace WF.coursework
             // 
             // btnDeleteDepartment
             // 
+            this.btnDeleteDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDeleteDepartment.Enabled = false;
-            this.btnDeleteDepartment.Location = new System.Drawing.Point(269, 89);
+            this.btnDeleteDepartment.Location = new System.Drawing.Point(328, 81);
             this.btnDeleteDepartment.Name = "btnDeleteDepartment";
-            this.btnDeleteDepartment.Size = new System.Drawing.Size(65, 20);
+            this.btnDeleteDepartment.Size = new System.Drawing.Size(69, 20);
             this.btnDeleteDepartment.TabIndex = 18;
             this.btnDeleteDepartment.Text = "Удалить";
             this.btnDeleteDepartment.UseVisualStyleBackColor = true;
@@ -364,16 +416,17 @@ namespace WF.coursework
             // 
             this.cbGender.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbGender.FormattingEnabled = true;
-            this.cbGender.Location = new System.Drawing.Point(80, 189);
+            this.cbGender.Location = new System.Drawing.Point(88, 185);
             this.cbGender.Name = "cbGender";
-            this.cbGender.Size = new System.Drawing.Size(112, 21);
+            this.cbGender.Size = new System.Drawing.Size(159, 21);
             this.cbGender.TabIndex = 10;
             // 
             // btnAddPost
             // 
-            this.btnAddPost.Location = new System.Drawing.Point(198, 115);
+            this.btnAddPost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddPost.Location = new System.Drawing.Point(253, 107);
             this.btnAddPost.Name = "btnAddPost";
-            this.btnAddPost.Size = new System.Drawing.Size(65, 19);
+            this.btnAddPost.Size = new System.Drawing.Size(69, 20);
             this.btnAddPost.TabIndex = 9;
             this.btnAddPost.Text = "Добавить";
             this.btnAddPost.UseVisualStyleBackColor = true;
@@ -384,9 +437,9 @@ namespace WF.coursework
             this.cbPost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbPost.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbPost.FormattingEnabled = true;
-            this.cbPost.Location = new System.Drawing.Point(80, 115);
+            this.cbPost.Location = new System.Drawing.Point(88, 107);
             this.cbPost.Name = "cbPost";
-            this.cbPost.Size = new System.Drawing.Size(112, 21);
+            this.cbPost.Size = new System.Drawing.Size(159, 21);
             this.cbPost.TabIndex = 9;
             this.cbPost.TextChanged += new System.EventHandler(this.cbPost_TextChanged);
             // 
@@ -396,7 +449,7 @@ namespace WF.coursework
             this.lblSurname.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblSurname.Location = new System.Drawing.Point(3, 0);
             this.lblSurname.Name = "lblSurname";
-            this.lblSurname.Size = new System.Drawing.Size(71, 30);
+            this.lblSurname.Size = new System.Drawing.Size(79, 26);
             this.lblSurname.TabIndex = 0;
             this.lblSurname.Text = "Фамилия:";
             this.lblSurname.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -405,9 +458,9 @@ namespace WF.coursework
             // 
             this.lblGender.AutoSize = true;
             this.lblGender.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblGender.Location = new System.Drawing.Point(3, 186);
+            this.lblGender.Location = new System.Drawing.Point(3, 182);
             this.lblGender.Name = "lblGender";
-            this.lblGender.Size = new System.Drawing.Size(71, 25);
+            this.lblGender.Size = new System.Drawing.Size(79, 26);
             this.lblGender.TabIndex = 6;
             this.lblGender.Text = "Пол:";
             this.lblGender.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -415,18 +468,18 @@ namespace WF.coursework
             // tbPhone
             // 
             this.tbPhone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbPhone.Location = new System.Drawing.Point(80, 140);
+            this.tbPhone.Location = new System.Drawing.Point(88, 133);
             this.tbPhone.Name = "tbPhone";
-            this.tbPhone.Size = new System.Drawing.Size(112, 20);
+            this.tbPhone.Size = new System.Drawing.Size(159, 20);
             this.tbPhone.TabIndex = 12;
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
             this.lblName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblName.Location = new System.Drawing.Point(3, 30);
+            this.lblName.Location = new System.Drawing.Point(3, 26);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(71, 30);
+            this.lblName.Size = new System.Drawing.Size(79, 26);
             this.lblName.TabIndex = 1;
             this.lblName.Text = "Имя:";
             this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -435,9 +488,9 @@ namespace WF.coursework
             // 
             this.lblDateHired.AutoSize = true;
             this.lblDateHired.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDateHired.Location = new System.Drawing.Point(3, 163);
+            this.lblDateHired.Location = new System.Drawing.Point(3, 156);
             this.lblDateHired.Name = "lblDateHired";
-            this.lblDateHired.Size = new System.Drawing.Size(71, 23);
+            this.lblDateHired.Size = new System.Drawing.Size(79, 26);
             this.lblDateHired.TabIndex = 5;
             this.lblDateHired.Text = "Дата приема на работу:";
             this.lblDateHired.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -445,18 +498,18 @@ namespace WF.coursework
             // tbTabNum
             // 
             this.tbTabNum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbTabNum.Location = new System.Drawing.Point(80, 63);
+            this.tbTabNum.Location = new System.Drawing.Point(88, 55);
             this.tbTabNum.Name = "tbTabNum";
-            this.tbTabNum.Size = new System.Drawing.Size(112, 20);
+            this.tbTabNum.Size = new System.Drawing.Size(159, 20);
             this.tbTabNum.TabIndex = 10;
             // 
             // lblPost
             // 
             this.lblPost.AutoSize = true;
             this.lblPost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPost.Location = new System.Drawing.Point(3, 112);
+            this.lblPost.Location = new System.Drawing.Point(3, 104);
             this.lblPost.Name = "lblPost";
-            this.lblPost.Size = new System.Drawing.Size(71, 25);
+            this.lblPost.Size = new System.Drawing.Size(79, 26);
             this.lblPost.TabIndex = 3;
             this.lblPost.Text = "Должность:";
             this.lblPost.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -465,9 +518,9 @@ namespace WF.coursework
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPhone.Location = new System.Drawing.Point(3, 137);
+            this.lblPhone.Location = new System.Drawing.Point(3, 130);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(71, 26);
+            this.lblPhone.Size = new System.Drawing.Size(79, 26);
             this.lblPhone.TabIndex = 4;
             this.lblPhone.Text = "Телефон:";
             this.lblPhone.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -475,18 +528,18 @@ namespace WF.coursework
             // tbName
             // 
             this.tbName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbName.Location = new System.Drawing.Point(80, 33);
+            this.tbName.Location = new System.Drawing.Point(88, 29);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(112, 20);
+            this.tbName.Size = new System.Drawing.Size(159, 20);
             this.tbName.TabIndex = 9;
             // 
             // lblTabNum
             // 
             this.lblTabNum.AutoSize = true;
             this.lblTabNum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTabNum.Location = new System.Drawing.Point(3, 60);
+            this.lblTabNum.Location = new System.Drawing.Point(3, 52);
             this.lblTabNum.Name = "lblTabNum";
-            this.lblTabNum.Size = new System.Drawing.Size(71, 26);
+            this.lblTabNum.Size = new System.Drawing.Size(79, 26);
             this.lblTabNum.TabIndex = 2;
             this.lblTabNum.Text = "Табельный №";
             this.lblTabNum.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -494,27 +547,28 @@ namespace WF.coursework
             // tbSurname
             // 
             this.tbSurname.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbSurname.Location = new System.Drawing.Point(80, 3);
+            this.tbSurname.Location = new System.Drawing.Point(88, 3);
             this.tbSurname.Name = "tbSurname";
-            this.tbSurname.Size = new System.Drawing.Size(112, 20);
+            this.tbSurname.Size = new System.Drawing.Size(159, 20);
             this.tbSurname.TabIndex = 8;
             // 
             // dtpDateHired
             // 
-            this.dtpDateHired.Location = new System.Drawing.Point(80, 166);
+            this.dtpDateHired.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtpDateHired.Location = new System.Drawing.Point(88, 159);
             this.dtpDateHired.Name = "dtpDateHired";
-            this.dtpDateHired.Size = new System.Drawing.Size(112, 20);
+            this.dtpDateHired.Size = new System.Drawing.Size(159, 20);
             this.dtpDateHired.TabIndex = 14;
             // 
             // lblUserDepartment
             // 
             this.lblUserDepartment.AutoSize = true;
             this.lblUserDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUserDepartment.Location = new System.Drawing.Point(3, 86);
+            this.lblUserDepartment.Location = new System.Drawing.Point(3, 78);
             this.lblUserDepartment.Name = "lblUserDepartment";
-            this.lblUserDepartment.Size = new System.Drawing.Size(71, 26);
+            this.lblUserDepartment.Size = new System.Drawing.Size(79, 26);
             this.lblUserDepartment.TabIndex = 15;
-            this.lblUserDepartment.Text = "Департамент";
+            this.lblUserDepartment.Text = "Департамент:";
             this.lblUserDepartment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cbUserDepartment
@@ -522,21 +576,60 @@ namespace WF.coursework
             this.cbUserDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbUserDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbUserDepartment.FormattingEnabled = true;
-            this.cbUserDepartment.Location = new System.Drawing.Point(80, 89);
+            this.cbUserDepartment.Location = new System.Drawing.Point(88, 81);
             this.cbUserDepartment.Name = "cbUserDepartment";
-            this.cbUserDepartment.Size = new System.Drawing.Size(112, 21);
+            this.cbUserDepartment.Size = new System.Drawing.Size(159, 21);
             this.cbUserDepartment.TabIndex = 16;
             this.cbUserDepartment.TextChanged += new System.EventHandler(this.cbUserDepartment_TextChanged);
             // 
             // btnAddDepartment
             // 
-            this.btnAddDepartment.Location = new System.Drawing.Point(198, 89);
+            this.btnAddDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAddDepartment.Location = new System.Drawing.Point(253, 81);
             this.btnAddDepartment.Name = "btnAddDepartment";
-            this.btnAddDepartment.Size = new System.Drawing.Size(65, 20);
+            this.btnAddDepartment.Size = new System.Drawing.Size(69, 20);
             this.btnAddDepartment.TabIndex = 17;
             this.btnAddDepartment.Text = "Добавить";
             this.btnAddDepartment.UseVisualStyleBackColor = true;
             this.btnAddDepartment.Click += new System.EventHandler(this.btnAddDepartment_Click);
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbPassword.Location = new System.Drawing.Point(88, 237);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(159, 20);
+            this.tbPassword.TabIndex = 19;
+            // 
+            // lblLogin
+            // 
+            this.lblLogin.AutoSize = true;
+            this.lblLogin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblLogin.Location = new System.Drawing.Point(3, 208);
+            this.lblLogin.Name = "lblLogin";
+            this.lblLogin.Size = new System.Drawing.Size(79, 26);
+            this.lblLogin.TabIndex = 21;
+            this.lblLogin.Text = "Логин:";
+            this.lblLogin.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblPassword
+            // 
+            this.lblPassword.AutoSize = true;
+            this.lblPassword.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblPassword.Location = new System.Drawing.Point(3, 234);
+            this.lblPassword.Name = "lblPassword";
+            this.lblPassword.Size = new System.Drawing.Size(79, 26);
+            this.lblPassword.TabIndex = 22;
+            this.lblPassword.Text = "Пароль:";
+            this.lblPassword.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tbLogin
+            // 
+            this.tbLogin.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbLogin.Location = new System.Drawing.Point(88, 211);
+            this.tbLogin.Name = "tbLogin";
+            this.tbLogin.Size = new System.Drawing.Size(159, 20);
+            this.tbLogin.TabIndex = 20;
             // 
             // gbDepartment
             // 
@@ -545,9 +638,9 @@ namespace WF.coursework
             this.gbDepartment.Controls.Add(this.cbDepartment);
             this.gbDepartment.Controls.Add(this.lbUsers);
             this.gbDepartment.Controls.Add(this.lblDepartment);
-            this.gbDepartment.Location = new System.Drawing.Point(3, 12);
+            this.gbDepartment.Location = new System.Drawing.Point(3, 3);
             this.gbDepartment.Name = "gbDepartment";
-            this.gbDepartment.Size = new System.Drawing.Size(314, 364);
+            this.gbDepartment.Size = new System.Drawing.Size(287, 314);
             this.gbDepartment.TabIndex = 6;
             this.gbDepartment.TabStop = false;
             this.gbDepartment.Text = "Список сотрудников";
@@ -558,7 +651,7 @@ namespace WF.coursework
             this.cbDepartment.FormattingEnabled = true;
             this.cbDepartment.Location = new System.Drawing.Point(51, 21);
             this.cbDepartment.Name = "cbDepartment";
-            this.cbDepartment.Size = new System.Drawing.Size(257, 21);
+            this.cbDepartment.Size = new System.Drawing.Size(230, 21);
             this.cbDepartment.TabIndex = 9;
             this.cbDepartment.SelectedIndexChanged += new System.EventHandler(this.cbDepartment_SelectedIndexChanged);
             // 
@@ -566,9 +659,9 @@ namespace WF.coursework
             // 
             this.lbUsers.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lbUsers.FormattingEnabled = true;
-            this.lbUsers.Location = new System.Drawing.Point(3, 45);
+            this.lbUsers.Location = new System.Drawing.Point(3, 47);
             this.lbUsers.Name = "lbUsers";
-            this.lbUsers.Size = new System.Drawing.Size(308, 316);
+            this.lbUsers.Size = new System.Drawing.Size(281, 264);
             this.lbUsers.TabIndex = 8;
             this.lbUsers.SelectedIndexChanged += new System.EventHandler(this.lbUsers_SelectedIndexChanged);
             // 
@@ -583,6 +676,7 @@ namespace WF.coursework
             // 
             // tpChart
             // 
+            this.tpChart.Controls.Add(this.tableLayoutPanel1);
             this.tpChart.Controls.Add(this.button2);
             this.tpChart.Controls.Add(this.button1);
             this.tpChart.Controls.Add(this.btnAddProject);
@@ -606,6 +700,53 @@ namespace WF.coursework
             this.tpChart.TabIndex = 2;
             this.tpChart.Text = "График проектов";
             this.tpChart.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(130, 169);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 100);
+            this.tableLayoutPanel1.TabIndex = 17;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button2.Location = new System.Drawing.Point(3, 309);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(108, 25);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "Удалить проект";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(0, 278);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 25);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "Изменить проект";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // btnAddProject
+            // 
+            this.btnAddProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddProject.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnAddProject.Location = new System.Drawing.Point(3, 247);
+            this.btnAddProject.Name = "btnAddProject";
+            this.btnAddProject.Size = new System.Drawing.Size(108, 25);
+            this.btnAddProject.TabIndex = 14;
+            this.btnAddProject.Text = "Добавить проект";
+            this.btnAddProject.UseVisualStyleBackColor = true;
             // 
             // listBox2
             // 
@@ -862,6 +1003,7 @@ namespace WF.coursework
             // 
             // btnAppReject
             // 
+            this.btnAppReject.Enabled = false;
             this.btnAppReject.Location = new System.Drawing.Point(55, 360);
             this.btnAppReject.Name = "btnAppReject";
             this.btnAppReject.Size = new System.Drawing.Size(193, 23);
@@ -872,6 +1014,7 @@ namespace WF.coursework
             // 
             // btnAppUpdate
             // 
+            this.btnAppUpdate.Enabled = false;
             this.btnAppUpdate.Location = new System.Drawing.Point(55, 389);
             this.btnAppUpdate.Name = "btnAppUpdate";
             this.btnAppUpdate.Size = new System.Drawing.Size(193, 23);
@@ -938,6 +1081,7 @@ namespace WF.coursework
             // 
             // btnAppAccept
             // 
+            this.btnAppAccept.Enabled = false;
             this.btnAppAccept.Location = new System.Drawing.Point(6, 275);
             this.btnAppAccept.Name = "btnAppAccept";
             this.btnAppAccept.Size = new System.Drawing.Size(193, 23);
@@ -950,8 +1094,9 @@ namespace WF.coursework
             // 
             this.tbComment.Enabled = false;
             this.tbComment.Location = new System.Drawing.Point(9, 229);
+            this.tbComment.Multiline = true;
             this.tbComment.Name = "tbComment";
-            this.tbComment.Size = new System.Drawing.Size(271, 20);
+            this.tbComment.Size = new System.Drawing.Size(271, 40);
             this.tbComment.TabIndex = 12;
             this.tbComment.TextChanged += new System.EventHandler(this.tbComment_TextChanged);
             // 
@@ -1009,8 +1154,8 @@ namespace WF.coursework
             // tlpApplicationInfo
             // 
             this.tlpApplicationInfo.ColumnCount = 2;
-            this.tlpApplicationInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.79562F));
-            this.tlpApplicationInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.20438F));
+            this.tlpApplicationInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 37.9562F));
+            this.tlpApplicationInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 62.0438F));
             this.tlpApplicationInfo.Controls.Add(this.lblAppReason, 0, 5);
             this.tlpApplicationInfo.Controls.Add(this.lblAppDepartment, 0, 0);
             this.tlpApplicationInfo.Controls.Add(this.lblAppPost, 0, 1);
@@ -1041,7 +1186,7 @@ namespace WF.coursework
             this.lblAppReason.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAppReason.Location = new System.Drawing.Point(3, 129);
             this.lblAppReason.Name = "lblAppReason";
-            this.lblAppReason.Size = new System.Drawing.Size(113, 25);
+            this.lblAppReason.Size = new System.Drawing.Size(97, 25);
             this.lblAppReason.TabIndex = 5;
             this.lblAppReason.Text = "Причина отпуска:";
             this.lblAppReason.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1052,7 +1197,7 @@ namespace WF.coursework
             this.lblAppDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAppDepartment.Location = new System.Drawing.Point(3, 0);
             this.lblAppDepartment.Name = "lblAppDepartment";
-            this.lblAppDepartment.Size = new System.Drawing.Size(113, 25);
+            this.lblAppDepartment.Size = new System.Drawing.Size(97, 25);
             this.lblAppDepartment.TabIndex = 3;
             this.lblAppDepartment.Text = "Департамент:";
             this.lblAppDepartment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1063,7 +1208,7 @@ namespace WF.coursework
             this.lblAppPost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAppPost.Location = new System.Drawing.Point(3, 25);
             this.lblAppPost.Name = "lblAppPost";
-            this.lblAppPost.Size = new System.Drawing.Size(113, 24);
+            this.lblAppPost.Size = new System.Drawing.Size(97, 24);
             this.lblAppPost.TabIndex = 5;
             this.lblAppPost.Text = "Должность:";
             this.lblAppPost.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1074,7 +1219,7 @@ namespace WF.coursework
             this.lblAppPeriodStart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAppPeriodStart.Location = new System.Drawing.Point(3, 49);
             this.lblAppPeriodStart.Name = "lblAppPeriodStart";
-            this.lblAppPeriodStart.Size = new System.Drawing.Size(113, 26);
+            this.lblAppPeriodStart.Size = new System.Drawing.Size(97, 26);
             this.lblAppPeriodStart.TabIndex = 3;
             this.lblAppPeriodStart.Text = "Дата начала отпуска:";
             this.lblAppPeriodStart.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1085,7 +1230,7 @@ namespace WF.coursework
             this.lblAppPeriodEnd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAppPeriodEnd.Location = new System.Drawing.Point(3, 75);
             this.lblAppPeriodEnd.Name = "lblAppPeriodEnd";
-            this.lblAppPeriodEnd.Size = new System.Drawing.Size(113, 27);
+            this.lblAppPeriodEnd.Size = new System.Drawing.Size(97, 27);
             this.lblAppPeriodEnd.TabIndex = 3;
             this.lblAppPeriodEnd.Text = "Дата окончания отпуска:";
             this.lblAppPeriodEnd.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1096,7 +1241,7 @@ namespace WF.coursework
             this.lblAppDuration.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblAppDuration.Location = new System.Drawing.Point(3, 102);
             this.lblAppDuration.Name = "lblAppDuration";
-            this.lblAppDuration.Size = new System.Drawing.Size(113, 27);
+            this.lblAppDuration.Size = new System.Drawing.Size(97, 27);
             this.lblAppDuration.TabIndex = 6;
             this.lblAppDuration.Text = "Длительность отпуска:";
             this.lblAppDuration.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1105,27 +1250,27 @@ namespace WF.coursework
             // 
             this.tbAppDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAppDepartment.Enabled = false;
-            this.tbAppDepartment.Location = new System.Drawing.Point(122, 3);
+            this.tbAppDepartment.Location = new System.Drawing.Point(106, 3);
             this.tbAppDepartment.Name = "tbAppDepartment";
-            this.tbAppDepartment.Size = new System.Drawing.Size(149, 20);
+            this.tbAppDepartment.Size = new System.Drawing.Size(165, 20);
             this.tbAppDepartment.TabIndex = 7;
             // 
             // tbAppPost
             // 
             this.tbAppPost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAppPost.Enabled = false;
-            this.tbAppPost.Location = new System.Drawing.Point(122, 28);
+            this.tbAppPost.Location = new System.Drawing.Point(106, 28);
             this.tbAppPost.Name = "tbAppPost";
-            this.tbAppPost.Size = new System.Drawing.Size(149, 20);
+            this.tbAppPost.Size = new System.Drawing.Size(165, 20);
             this.tbAppPost.TabIndex = 8;
             // 
             // dtpAppPeriodEnd
             // 
             this.dtpAppPeriodEnd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpAppPeriodEnd.Enabled = false;
-            this.dtpAppPeriodEnd.Location = new System.Drawing.Point(122, 78);
+            this.dtpAppPeriodEnd.Location = new System.Drawing.Point(106, 78);
             this.dtpAppPeriodEnd.Name = "dtpAppPeriodEnd";
-            this.dtpAppPeriodEnd.Size = new System.Drawing.Size(149, 20);
+            this.dtpAppPeriodEnd.Size = new System.Drawing.Size(165, 20);
             this.dtpAppPeriodEnd.TabIndex = 10;
             this.dtpAppPeriodEnd.ValueChanged += new System.EventHandler(this.dtpAppPeriodEnd_ValueChanged);
             // 
@@ -1133,9 +1278,9 @@ namespace WF.coursework
             // 
             this.dtpAppPeriodStart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpAppPeriodStart.Enabled = false;
-            this.dtpAppPeriodStart.Location = new System.Drawing.Point(122, 52);
+            this.dtpAppPeriodStart.Location = new System.Drawing.Point(106, 52);
             this.dtpAppPeriodStart.Name = "dtpAppPeriodStart";
-            this.dtpAppPeriodStart.Size = new System.Drawing.Size(149, 20);
+            this.dtpAppPeriodStart.Size = new System.Drawing.Size(165, 20);
             this.dtpAppPeriodStart.TabIndex = 9;
             this.dtpAppPeriodStart.ValueChanged += new System.EventHandler(this.dtpAppPeriodStart_ValueChanged);
             // 
@@ -1143,9 +1288,9 @@ namespace WF.coursework
             // 
             this.tbAppReason.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAppReason.Enabled = false;
-            this.tbAppReason.Location = new System.Drawing.Point(122, 132);
+            this.tbAppReason.Location = new System.Drawing.Point(106, 132);
             this.tbAppReason.Name = "tbAppReason";
-            this.tbAppReason.Size = new System.Drawing.Size(149, 20);
+            this.tbAppReason.Size = new System.Drawing.Size(165, 20);
             this.tbAppReason.TabIndex = 12;
             // 
             // panelAppDuration
@@ -1153,9 +1298,9 @@ namespace WF.coursework
             this.panelAppDuration.Controls.Add(this.numudAppDuration);
             this.panelAppDuration.Controls.Add(this.lblAppDurationDays);
             this.panelAppDuration.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAppDuration.Location = new System.Drawing.Point(122, 105);
+            this.panelAppDuration.Location = new System.Drawing.Point(106, 105);
             this.panelAppDuration.Name = "panelAppDuration";
-            this.panelAppDuration.Size = new System.Drawing.Size(149, 21);
+            this.panelAppDuration.Size = new System.Drawing.Size(165, 21);
             this.panelAppDuration.TabIndex = 13;
             // 
             // numudAppDuration
@@ -1171,7 +1316,7 @@ namespace WF.coursework
             // lblAppDurationDays
             // 
             this.lblAppDurationDays.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblAppDurationDays.Location = new System.Drawing.Point(58, 0);
+            this.lblAppDurationDays.Location = new System.Drawing.Point(74, 0);
             this.lblAppDurationDays.Name = "lblAppDurationDays";
             this.lblAppDurationDays.Size = new System.Drawing.Size(91, 21);
             this.lblAppDurationDays.TabIndex = 13;
@@ -1183,18 +1328,18 @@ namespace WF.coursework
             this.lblApplicationID.AutoSize = true;
             this.lblApplicationID.Location = new System.Drawing.Point(8, 16);
             this.lblApplicationID.Name = "lblApplicationID";
-            this.lblApplicationID.Size = new System.Drawing.Size(48, 13);
+            this.lblApplicationID.Size = new System.Drawing.Size(30, 13);
             this.lblApplicationID.TabIndex = 0;
-            this.lblApplicationID.Text = "ID: 9999";
+            this.lblApplicationID.Text = "ID: 0";
             // 
             // lblWorkerInfo
             // 
             this.lblWorkerInfo.AutoSize = true;
             this.lblWorkerInfo.Location = new System.Drawing.Point(9, 40);
             this.lblWorkerInfo.Name = "lblWorkerInfo";
-            this.lblWorkerInfo.Size = new System.Drawing.Size(181, 13);
+            this.lblWorkerInfo.Size = new System.Drawing.Size(191, 13);
             this.lblWorkerInfo.TabIndex = 4;
-            this.lblWorkerInfo.Text = "Surname Name (gen) TabNum: 9999";
+            this.lblWorkerInfo.Text = "Фамилия Имя (пол) Табельный № 0";
             // 
             // gbApplications
             // 
@@ -1285,39 +1430,6 @@ namespace WF.coursework
             // 
             this.vacationsTableAdapter.ClearBeforeFill = true;
             // 
-            // btnAddProject
-            // 
-            this.btnAddProject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddProject.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAddProject.Location = new System.Drawing.Point(3, 247);
-            this.btnAddProject.Name = "btnAddProject";
-            this.btnAddProject.Size = new System.Drawing.Size(108, 25);
-            this.btnAddProject.TabIndex = 14;
-            this.btnAddProject.Text = "Добавить проект";
-            this.btnAddProject.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(0, 278);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 25);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Изменить проект";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button2.Location = new System.Drawing.Point(3, 309);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 25);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "Удалить проект";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1383,11 +1495,11 @@ namespace WF.coursework
         private System.Windows.Forms.PictureBox Pic_close;
         private System.Windows.Forms.PictureBox Pic_minimize;
         private System.Windows.Forms.TabPage tpDepartments;
-        private System.Windows.Forms.Button btnChange;
+        private System.Windows.Forms.Button btnChangeUserInfo;
         private System.Windows.Forms.Button btnDeleteUser;
         private System.Windows.Forms.Button btnAddUser;
         private System.Windows.Forms.GroupBox gbUsers;
-        private System.Windows.Forms.Button btnClearUser;
+        private System.Windows.Forms.Button btnNewUser;
         private System.Windows.Forms.Label lblUserID;
         private System.Windows.Forms.Button btn_test;
         private System.Windows.Forms.TableLayoutPanel tlpUsers;
@@ -1486,5 +1598,13 @@ namespace WF.coursework
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAddProject;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.CheckBox chbManadger;
+        private System.Windows.Forms.CheckBox chbAdmin;
+        private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.Label lblLogin;
+        private System.Windows.Forms.Label lblPassword;
+        private System.Windows.Forms.TextBox tbLogin;
+        private System.Windows.Forms.Button btnChangeInfo;
     }
 }

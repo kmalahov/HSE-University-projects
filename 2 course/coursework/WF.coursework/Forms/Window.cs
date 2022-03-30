@@ -156,8 +156,8 @@ namespace WF.coursework
                 duration = new_vacation.duration;
             }
             //запрос на добавление нового отпуска
-            SqlCommand command = new SqlCommand($"INSERT INTO [Application_for_vacation] (date_begin_vacation, vacation_count) " +//, id_worker, id_status_application, id_classification_vacation
-                $"VALUES (@date_begin_vacation, @vacation_count)", sqlConnection);//@id_worker, @id_status_application, id_classification_vacation
+            SqlCommand command = new SqlCommand($"INSERT INTO [Application_for_vacation] (date_begin_vacation, vacation_count) " +
+                $"VALUES (@date_begin_vacation, @vacation_count)", sqlConnection);
 
             
             DateTime parsed_date = DateTime.Parse(period_start);
@@ -171,6 +171,8 @@ namespace WF.coursework
             //command.Parameters.AddWithValue("id_worker", cbVacation_count_reeal.Text);
             //command.Parameters.AddWithValue("id_status_application", tbID_classification_vacation.Text);
             //command.Parameters.AddWithValue("id_classification_vacation", tbID_classification_vacation.Text);
+            //, id_worker, id_status_application, id_classification_vacation
+            //@id_worker, @id_status_application, id_classification_vacation
         }
 
         private void Update_applicationForVacations()
@@ -216,6 +218,50 @@ namespace WF.coursework
             //lbUsers.Items.Add([название в таблице].имя\фамилия\таб номер);
         }
 
+        private void Update_workers(string input)
+        {
+            lbUsers.Items.Clear();
+
+            SqlCommand command = new SqlCommand($"SELECT * FROM [Department] WHERE department LIKE N'{cbDepartment.Text}'", sqlConnection);
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        convert_id_department = reader.GetInt32(0);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            SqlCommand WRKcmd = new SqlCommand($"SELECT * FROM [Workers] WHERE id_department = {convert_id_department}", sqlConnection);
+            SqlDataReader dataReader = WRKcmd.ExecuteReader();
+            if (dataReader.HasRows)
+            {
+                lbUsers.BeginUpdate();
+                while (dataReader.Read())
+                {
+                    lbUsers.Items.Add(dataReader.GetString(1));
+                }
+                lbUsers.EndUpdate();
+            }
+            dataReader.Close();
+        }
+
+        private void lbUsers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Clear_worker_fields();
+            lblUserID.Text = $"ID: 9999";
+            string selected = lbUsers.SelectedItem.ToString();
+            MessageBox.Show(selected);
+            //запрос на получение чела по таб номеру из лист бокса
+            //потом добавляем все его данные из таблицы в комбобоксы
+        }
+
+        #region Департаменты
         private void Update_departments()
         {
             cbDepartment.Items.Clear();
@@ -289,7 +335,9 @@ namespace WF.coursework
             else
                 btnDeleteDepartment.Enabled = true;
         }
+        #endregion
 
+        #region Должности
         private void Update_posts()
         {
             cbPost.Items.Clear();
@@ -356,47 +404,72 @@ namespace WF.coursework
             else
                 btnDeletePost.Enabled = true;
         }
-
-        private void Update_workers(string input)
+        #endregion
+        
+        private void btnNewUser_Click(object sender, EventArgs e)
         {
-            lbUsers.Items.Clear();
-
-            SqlCommand command = new SqlCommand($"SELECT * FROM [Department] WHERE department LIKE N'{cbDepartment.Text}'", sqlConnection);
-            try
-            {
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        convert_id_department = reader.GetInt32(0);
-                    }
-                }
-                reader.Close();
-            }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
-
-            SqlCommand WRKcmd = new SqlCommand($"SELECT * FROM [Workers] WHERE id_department = {convert_id_department}", sqlConnection);
-            SqlDataReader dataReader = WRKcmd.ExecuteReader();
-            if (dataReader.HasRows)
-            {
-                lbUsers.BeginUpdate();
-                while (dataReader.Read())
-                {
-                    lbUsers.Items.Add(dataReader.GetString(1));
-                }
-                lbUsers.EndUpdate();
-            }
-            dataReader.Close();
+            Clear_worker_fields();
+            btnAddUser.Enabled = true;
         }
 
-        private void lbUsers_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnChangeInfo_Click(object sender, EventArgs e)
         {
-            lblUserID.Text = $"ID: 9999";
-            string selected = lbUsers.SelectedItem.ToString();
-            MessageBox.Show(selected);
-            //запрос на получение чела по таб номеру из лист бокса
-            //потом добавляем все его данные из таблицы в комбобоксы
+            if (btnChangeInfo.Text == "Изменить")
+            {
+                btnChangeInfo.Text = "Отменить";
+                tbSurname.Enabled = true;
+                tbName.Enabled = true;
+                tbTabNum.Enabled = true;
+                cbDepartment.Enabled = true;
+                cbPost.Enabled = true;
+                tbPhone.Enabled = true;
+                dtpDateHired.Enabled = true;
+                cbGender.Enabled = true;
+                tbPassword.Enabled = true;
+                chbAdmin.Enabled = true;
+                chbManadger.Enabled = true;
+
+                btnChangeUserInfo.Enabled = true;
+            }
+            else if (btnChangeInfo.Text == "Отменить")
+            {
+                btnChangeInfo.Text = "Изменить";
+                tbSurname.Enabled = false;
+                tbName.Enabled = false;
+                tbTabNum.Enabled = false;
+                cbDepartment.Enabled = false;
+                cbPost.Enabled = false;
+                tbPhone.Enabled = false;
+                dtpDateHired.Enabled = false;
+                cbGender.Enabled = false;
+                tbPassword.Enabled = false;
+                chbAdmin.Enabled = false;
+                chbManadger.Enabled = false;
+
+                btnChangeUserInfo.Enabled = false;
+            }
+        }
+
+        private void Clear_worker_fields()
+        {
+            lblUserID.Text = "ID: 0";
+            tbSurname.Clear();
+            tbName.Clear();
+            tbTabNum.Clear();
+            Update_departments();
+            Update_posts();
+            tbPhone.Clear();
+            dtpDateHired.Value = DateTime.Now;
+            Update_gender();
+            tbLogin.Clear();
+            tbPassword.Clear();
+            chbAdmin.Checked = false;
+            chbManadger.Checked = false;
+
+            btnChangeInfo.Text = "Изменить";
+            btnAddUser.Enabled = false;
+            btnChangeUserInfo.Enabled = false;
+            btnDeleteUser.Enabled = false;
         }
 
         private void Update_gender()
@@ -449,24 +522,11 @@ namespace WF.coursework
         {
 
         }
-
-        private void btnClearUser_Click(object sender, EventArgs e)
-        {
-            lblUserID.Text = "ID: 0";
-            tbSurname.Text = "";
-            tbName.Text = "";
-            tbTabNum.Text = "";
-            cbUserDepartment.Text = "";
-            cbPost.Text = "";
-            tbPhone.Text = "";
-            dtpDateHired.Value = new DateTime(2000, 01, 01, 0, 0, 0);
-            cbGender.Text = "";
-        }
         #endregion
 
         #region Заявки
-        public static DateTime tabAppl_period_start;
-        public static DateTime tabAppl_period_end;
+        public static DateTime tabAppl_period_start = DateTime.Now;
+        public static DateTime tabAppl_period_end = DateTime.Now;
         public static string tabAppl_classification = String.Empty;
         public static int tabAppl_duration;
         public static bool print_order = false;
@@ -491,19 +551,17 @@ namespace WF.coursework
 
         private void btnUpdateApplications_Click(object sender, EventArgs e)
         {
+            Clear_application_fields();
             Update_applications();
         }
 
         private void lbApplications_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnAppChange.Text = "Изменить";
-            dtpAppPeriodStart.Enabled = false;
-            dtpAppPeriodEnd.Enabled = false;
-            numudAppDuration.Enabled = false;
+            Clear_application_fields();
             btnAppReject.Enabled = true;
-            btnAppUpdate.Enabled = false;
             btnAppAccept.Enabled = true;
 
+            int id_application;
             int id_worker = 0;
             int id_calssification = 0;
             string code_calssification = String.Empty;
@@ -517,7 +575,11 @@ namespace WF.coursework
             int id_post = 0;
             int id_gender = 0;
 
-            int id_application = Convert.ToInt32((lbApplications.SelectedItem.ToString()).Replace("№ ", ""));
+            if (lbApplications.SelectedItem != null || lbApplications.SelectedIndex >= 0)
+                id_application = Convert.ToInt32((lbApplications.SelectedItem.ToString()).Replace("№ ", ""));
+            else
+                return;
+            
             lblApplicationID.Text = $"ID: {id_application}";
             
             SqlCommand command = new SqlCommand($"SELECT * FROM [Application_for_vacation] WHERE id_application = {id_application}", sqlConnection);
@@ -614,7 +676,7 @@ namespace WF.coursework
                 appl_worker_gender = "Ж";
 
             tbAppReason.Text = tabAppl_classification;
-            lblWorkerInfo.Text = $"{appl_worker_name} {appl_worker_surname} ({appl_worker_gender}) TabNum: {appl_worker_tabnum}";
+            lblWorkerInfo.Text = $"{appl_worker_name.Replace(" ", "")} {appl_worker_surname.Replace(" ", "")} ({appl_worker_gender.Replace(" ", "")}) Табельный номер: {appl_worker_tabnum}";
 
             dtpAppPeriodStart.Value = tabAppl_period_start;
             mcPeriodStart.SelectionStart = tabAppl_period_start;
@@ -655,24 +717,19 @@ namespace WF.coursework
 
         private void btnAppReject_Click(object sender, EventArgs e)
         {
-
+            Clear_application_fields();
             Update_applications();
         }
 
         private void btnAppUpdate_Click(object sender, EventArgs e)
         {
-            btnAppChange.Text = "Изменить";
-            dtpAppPeriodStart.Enabled = false;
-            dtpAppPeriodEnd.Enabled = false;
-            numudAppDuration.Enabled = false;
-            btnAppReject.Enabled = true;
-            btnAppUpdate.Enabled = false;
+            Clear_application_fields();
             Update_applications();
         }
 
         private void btnAppAccept_Click(object sender, EventArgs e)
         {
-
+            Clear_application_fields();
             Update_applications();
         }
 
@@ -720,7 +777,6 @@ namespace WF.coursework
                 mcPeriodEnd.SelectionStart = DateTime.Now;
                 mcPeriodEnd.SelectionEnd = DateTime.Now;
 
-                tabAppl_period_end = DateTime.Now;
                 btnAppUpdate.Enabled = false;
             }
             else
@@ -816,6 +872,33 @@ namespace WF.coursework
             {
                 print_order = false;
             }
+        }
+
+        private void Clear_application_fields()
+        {
+            lblApplicationID.Text = "ID: 0";
+            lblWorkerInfo.Text = "Фамилия Имя (пол) Табельный номер: 0";
+            tbAppDepartment.Clear();
+            tbAppPost.Clear();
+            dtpAppPeriodStart.Value = DateTime.Now;
+            dtpAppPeriodEnd.Value = DateTime.Now;
+            mcPeriodStart.SelectionStart = DateTime.Now;
+            mcPeriodStart.SelectionEnd = DateTime.Now;
+            mcPeriodEnd.SelectionStart = DateTime.Now;
+            mcPeriodEnd.SelectionEnd = DateTime.Now;
+            numudAppDuration.Value = 0;
+            tbAppReason.Clear();
+            tbComment.Clear();
+            chbChange.Checked = false;
+            chbPrintOrder.Checked = false;
+
+            btnAppChange.Text = "Изменить";
+            dtpAppPeriodStart.Enabled = false;
+            dtpAppPeriodEnd.Enabled = false;
+            numudAppDuration.Enabled = false;
+            btnAppReject.Enabled = false;
+            btnAppUpdate.Enabled = false;
+            btnAppAccept.Enabled = false;
         }
         #endregion
 

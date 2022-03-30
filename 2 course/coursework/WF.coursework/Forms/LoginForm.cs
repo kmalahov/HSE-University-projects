@@ -68,20 +68,6 @@ namespace WF.coursework
                 {
                     MessageBox.Show("Неправильный логин или пароль");
                 }
-
-                //DataRow[] currentRows = table.Select(null, null, DataViewRowState.CurrentRows);
-                //string tet = "";
-
-                //foreach (DataColumn column in table.Columns)
-                //    tet += ("\n{0}", column.ColumnName);
-
-                //foreach (DataRow row in currentRows)
-                //{
-                //    foreach (DataColumn column in table.Columns)
-                //        tet += ("\n{0}", row[column]);
-                //    tet += ("\n" + row.RowState);
-                //}
-                //MessageBox.Show(tet);
             }
             else
             {
