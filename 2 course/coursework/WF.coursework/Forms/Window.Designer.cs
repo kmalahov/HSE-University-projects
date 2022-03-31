@@ -30,7 +30,6 @@ namespace WF.coursework
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Window));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.MainMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.TSbtnSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +46,8 @@ namespace WF.coursework
             this.lblUserID = new System.Windows.Forms.Label();
             this.btn_test = new System.Windows.Forms.Button();
             this.tlpUsers = new System.Windows.Forms.TableLayoutPanel();
+            this.tbMail = new System.Windows.Forms.TextBox();
+            this.lbMail = new System.Windows.Forms.Label();
             this.btnDeletePost = new System.Windows.Forms.Button();
             this.btnDeleteDepartment = new System.Windows.Forms.Button();
             this.cbGender = new System.Windows.Forms.ComboBox();
@@ -76,24 +77,14 @@ namespace WF.coursework
             this.lbUsers = new System.Windows.Forms.ListBox();
             this.lblDepartment = new System.Windows.Forms.Label();
             this.tpChart = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panelGanttElement = new System.Windows.Forms.Panel();
+            this.panelGantt = new System.Windows.Forms.Panel();
+            this.panelMonth = new System.Windows.Forms.Panel();
+            this.panelYear = new System.Windows.Forms.Panel();
+            this.btnChangeGantt = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.btnAddProject = new System.Windows.Forms.Button();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lbProjects = new System.Windows.Forms.ListBox();
             this.tpMyVacation = new System.Windows.Forms.TabPage();
             this.dgwVacation = new System.Windows.Forms.DataGridView();
             this.cbApplications = new System.Windows.Forms.ComboBox();
@@ -155,6 +146,8 @@ namespace WF.coursework
             this.tlpUsers.SuspendLayout();
             this.gbDepartment.SuspendLayout();
             this.tpChart.SuspendLayout();
+            this.panelGanttElement.SuspendLayout();
+            this.panelGantt.SuspendLayout();
             this.tpMyVacation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwVacation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplication)).BeginInit();
@@ -292,7 +285,8 @@ namespace WF.coursework
             // chbManadger
             // 
             this.chbManadger.AutoSize = true;
-            this.chbManadger.Location = new System.Drawing.Point(6, 328);
+            this.chbManadger.Enabled = false;
+            this.chbManadger.Location = new System.Drawing.Point(6, 356);
             this.chbManadger.Name = "chbManadger";
             this.chbManadger.Size = new System.Drawing.Size(79, 17);
             this.chbManadger.TabIndex = 12;
@@ -302,7 +296,8 @@ namespace WF.coursework
             // chbAdmin
             // 
             this.chbAdmin.AutoSize = true;
-            this.chbAdmin.Location = new System.Drawing.Point(6, 310);
+            this.chbAdmin.Enabled = false;
+            this.chbAdmin.Location = new System.Drawing.Point(6, 337);
             this.chbAdmin.Name = "chbAdmin";
             this.chbAdmin.Size = new System.Drawing.Size(105, 17);
             this.chbAdmin.TabIndex = 11;
@@ -346,33 +341,35 @@ namespace WF.coursework
             this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
             this.tlpUsers.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-            this.tlpUsers.Controls.Add(this.btnDeletePost, 3, 4);
-            this.tlpUsers.Controls.Add(this.btnDeleteDepartment, 3, 3);
-            this.tlpUsers.Controls.Add(this.cbGender, 1, 7);
-            this.tlpUsers.Controls.Add(this.btnAddPost, 2, 4);
-            this.tlpUsers.Controls.Add(this.cbPost, 1, 4);
-            this.tlpUsers.Controls.Add(this.lblSurname, 0, 0);
-            this.tlpUsers.Controls.Add(this.lblGender, 0, 7);
-            this.tlpUsers.Controls.Add(this.tbPhone, 1, 5);
-            this.tlpUsers.Controls.Add(this.lblName, 0, 1);
-            this.tlpUsers.Controls.Add(this.lblDateHired, 0, 6);
-            this.tlpUsers.Controls.Add(this.tbTabNum, 1, 2);
-            this.tlpUsers.Controls.Add(this.lblPost, 0, 4);
-            this.tlpUsers.Controls.Add(this.lblPhone, 0, 5);
-            this.tlpUsers.Controls.Add(this.tbName, 1, 1);
-            this.tlpUsers.Controls.Add(this.lblTabNum, 0, 2);
-            this.tlpUsers.Controls.Add(this.tbSurname, 1, 0);
-            this.tlpUsers.Controls.Add(this.dtpDateHired, 1, 6);
-            this.tlpUsers.Controls.Add(this.lblUserDepartment, 0, 3);
-            this.tlpUsers.Controls.Add(this.cbUserDepartment, 1, 3);
-            this.tlpUsers.Controls.Add(this.btnAddDepartment, 2, 3);
-            this.tlpUsers.Controls.Add(this.tbPassword, 1, 9);
-            this.tlpUsers.Controls.Add(this.lblLogin, 0, 8);
-            this.tlpUsers.Controls.Add(this.lblPassword, 0, 9);
-            this.tlpUsers.Controls.Add(this.tbLogin, 1, 8);
+            this.tlpUsers.Controls.Add(this.tbMail, 1, 7);
+            this.tlpUsers.Controls.Add(this.lbMail, 0, 7);
+            this.tlpUsers.Controls.Add(this.btnDeletePost, 3, 6);
+            this.tlpUsers.Controls.Add(this.btnDeleteDepartment, 3, 5);
+            this.tlpUsers.Controls.Add(this.cbGender, 1, 10);
+            this.tlpUsers.Controls.Add(this.btnAddPost, 2, 6);
+            this.tlpUsers.Controls.Add(this.cbPost, 1, 6);
+            this.tlpUsers.Controls.Add(this.lblSurname, 0, 2);
+            this.tlpUsers.Controls.Add(this.lblGender, 0, 10);
+            this.tlpUsers.Controls.Add(this.tbPhone, 1, 8);
+            this.tlpUsers.Controls.Add(this.lblName, 0, 3);
+            this.tlpUsers.Controls.Add(this.lblDateHired, 0, 9);
+            this.tlpUsers.Controls.Add(this.tbTabNum, 1, 4);
+            this.tlpUsers.Controls.Add(this.lblPost, 0, 6);
+            this.tlpUsers.Controls.Add(this.lblPhone, 0, 8);
+            this.tlpUsers.Controls.Add(this.tbName, 1, 3);
+            this.tlpUsers.Controls.Add(this.lblTabNum, 0, 4);
+            this.tlpUsers.Controls.Add(this.tbSurname, 1, 2);
+            this.tlpUsers.Controls.Add(this.dtpDateHired, 1, 9);
+            this.tlpUsers.Controls.Add(this.lblUserDepartment, 0, 5);
+            this.tlpUsers.Controls.Add(this.cbUserDepartment, 1, 5);
+            this.tlpUsers.Controls.Add(this.btnAddDepartment, 2, 5);
+            this.tlpUsers.Controls.Add(this.tbPassword, 1, 1);
+            this.tlpUsers.Controls.Add(this.lblLogin, 0, 0);
+            this.tlpUsers.Controls.Add(this.lblPassword, 0, 1);
+            this.tlpUsers.Controls.Add(this.tbLogin, 1, 0);
             this.tlpUsers.Location = new System.Drawing.Point(6, 44);
             this.tlpUsers.Name = "tlpUsers";
-            this.tlpUsers.RowCount = 10;
+            this.tlpUsers.RowCount = 11;
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
@@ -383,40 +380,63 @@ namespace WF.coursework
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
             this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
-            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpUsers.Size = new System.Drawing.Size(400, 260);
+            this.tlpUsers.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 26F));
+            this.tlpUsers.Size = new System.Drawing.Size(400, 287);
             this.tlpUsers.TabIndex = 7;
+            // 
+            // tbMail
+            // 
+            this.tbMail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbMail.Enabled = false;
+            this.tbMail.Location = new System.Drawing.Point(88, 185);
+            this.tbMail.Name = "tbMail";
+            this.tbMail.Size = new System.Drawing.Size(159, 20);
+            this.tbMail.TabIndex = 24;
+            // 
+            // lbMail
+            // 
+            this.lbMail.AutoSize = true;
+            this.lbMail.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbMail.Location = new System.Drawing.Point(3, 182);
+            this.lbMail.Name = "lbMail";
+            this.lbMail.Size = new System.Drawing.Size(79, 26);
+            this.lbMail.TabIndex = 23;
+            this.lbMail.Text = "Почта:";
+            this.lbMail.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // btnDeletePost
             // 
             this.btnDeletePost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDeletePost.Enabled = false;
-            this.btnDeletePost.Location = new System.Drawing.Point(328, 107);
+            this.btnDeletePost.Location = new System.Drawing.Point(328, 159);
             this.btnDeletePost.Name = "btnDeletePost";
             this.btnDeletePost.Size = new System.Drawing.Size(69, 20);
             this.btnDeletePost.TabIndex = 18;
             this.btnDeletePost.Text = "Удалить";
             this.btnDeletePost.UseVisualStyleBackColor = true;
+            this.btnDeletePost.Visible = false;
             this.btnDeletePost.Click += new System.EventHandler(this.btnDeletePost_Click);
             // 
             // btnDeleteDepartment
             // 
             this.btnDeleteDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDeleteDepartment.Enabled = false;
-            this.btnDeleteDepartment.Location = new System.Drawing.Point(328, 81);
+            this.btnDeleteDepartment.Location = new System.Drawing.Point(328, 133);
             this.btnDeleteDepartment.Name = "btnDeleteDepartment";
             this.btnDeleteDepartment.Size = new System.Drawing.Size(69, 20);
             this.btnDeleteDepartment.TabIndex = 18;
             this.btnDeleteDepartment.Text = "Удалить";
             this.btnDeleteDepartment.UseVisualStyleBackColor = true;
+            this.btnDeleteDepartment.Visible = false;
             this.btnDeleteDepartment.Click += new System.EventHandler(this.btnDeleteDepartment_Click);
             // 
             // cbGender
             // 
             this.cbGender.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbGender.Enabled = false;
             this.cbGender.FormattingEnabled = true;
-            this.cbGender.Location = new System.Drawing.Point(88, 185);
+            this.cbGender.Location = new System.Drawing.Point(88, 263);
             this.cbGender.Name = "cbGender";
             this.cbGender.Size = new System.Drawing.Size(159, 21);
             this.cbGender.TabIndex = 10;
@@ -424,7 +444,7 @@ namespace WF.coursework
             // btnAddPost
             // 
             this.btnAddPost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddPost.Location = new System.Drawing.Point(253, 107);
+            this.btnAddPost.Location = new System.Drawing.Point(253, 159);
             this.btnAddPost.Name = "btnAddPost";
             this.btnAddPost.Size = new System.Drawing.Size(69, 20);
             this.btnAddPost.TabIndex = 9;
@@ -436,8 +456,9 @@ namespace WF.coursework
             // 
             this.cbPost.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbPost.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbPost.Enabled = false;
             this.cbPost.FormattingEnabled = true;
-            this.cbPost.Location = new System.Drawing.Point(88, 107);
+            this.cbPost.Location = new System.Drawing.Point(88, 159);
             this.cbPost.Name = "cbPost";
             this.cbPost.Size = new System.Drawing.Size(159, 21);
             this.cbPost.TabIndex = 9;
@@ -447,7 +468,7 @@ namespace WF.coursework
             // 
             this.lblSurname.AutoSize = true;
             this.lblSurname.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblSurname.Location = new System.Drawing.Point(3, 0);
+            this.lblSurname.Location = new System.Drawing.Point(3, 52);
             this.lblSurname.Name = "lblSurname";
             this.lblSurname.Size = new System.Drawing.Size(79, 26);
             this.lblSurname.TabIndex = 0;
@@ -458,9 +479,9 @@ namespace WF.coursework
             // 
             this.lblGender.AutoSize = true;
             this.lblGender.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblGender.Location = new System.Drawing.Point(3, 182);
+            this.lblGender.Location = new System.Drawing.Point(3, 260);
             this.lblGender.Name = "lblGender";
-            this.lblGender.Size = new System.Drawing.Size(79, 26);
+            this.lblGender.Size = new System.Drawing.Size(79, 27);
             this.lblGender.TabIndex = 6;
             this.lblGender.Text = "Пол:";
             this.lblGender.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -468,7 +489,8 @@ namespace WF.coursework
             // tbPhone
             // 
             this.tbPhone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbPhone.Location = new System.Drawing.Point(88, 133);
+            this.tbPhone.Enabled = false;
+            this.tbPhone.Location = new System.Drawing.Point(88, 211);
             this.tbPhone.Name = "tbPhone";
             this.tbPhone.Size = new System.Drawing.Size(159, 20);
             this.tbPhone.TabIndex = 12;
@@ -477,7 +499,7 @@ namespace WF.coursework
             // 
             this.lblName.AutoSize = true;
             this.lblName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblName.Location = new System.Drawing.Point(3, 26);
+            this.lblName.Location = new System.Drawing.Point(3, 78);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(79, 26);
             this.lblName.TabIndex = 1;
@@ -488,7 +510,7 @@ namespace WF.coursework
             // 
             this.lblDateHired.AutoSize = true;
             this.lblDateHired.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblDateHired.Location = new System.Drawing.Point(3, 156);
+            this.lblDateHired.Location = new System.Drawing.Point(3, 234);
             this.lblDateHired.Name = "lblDateHired";
             this.lblDateHired.Size = new System.Drawing.Size(79, 26);
             this.lblDateHired.TabIndex = 5;
@@ -498,7 +520,8 @@ namespace WF.coursework
             // tbTabNum
             // 
             this.tbTabNum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbTabNum.Location = new System.Drawing.Point(88, 55);
+            this.tbTabNum.Enabled = false;
+            this.tbTabNum.Location = new System.Drawing.Point(88, 107);
             this.tbTabNum.Name = "tbTabNum";
             this.tbTabNum.Size = new System.Drawing.Size(159, 20);
             this.tbTabNum.TabIndex = 10;
@@ -507,7 +530,7 @@ namespace WF.coursework
             // 
             this.lblPost.AutoSize = true;
             this.lblPost.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPost.Location = new System.Drawing.Point(3, 104);
+            this.lblPost.Location = new System.Drawing.Point(3, 156);
             this.lblPost.Name = "lblPost";
             this.lblPost.Size = new System.Drawing.Size(79, 26);
             this.lblPost.TabIndex = 3;
@@ -518,7 +541,7 @@ namespace WF.coursework
             // 
             this.lblPhone.AutoSize = true;
             this.lblPhone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPhone.Location = new System.Drawing.Point(3, 130);
+            this.lblPhone.Location = new System.Drawing.Point(3, 208);
             this.lblPhone.Name = "lblPhone";
             this.lblPhone.Size = new System.Drawing.Size(79, 26);
             this.lblPhone.TabIndex = 4;
@@ -528,7 +551,8 @@ namespace WF.coursework
             // tbName
             // 
             this.tbName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbName.Location = new System.Drawing.Point(88, 29);
+            this.tbName.Enabled = false;
+            this.tbName.Location = new System.Drawing.Point(88, 81);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(159, 20);
             this.tbName.TabIndex = 9;
@@ -537,7 +561,7 @@ namespace WF.coursework
             // 
             this.lblTabNum.AutoSize = true;
             this.lblTabNum.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTabNum.Location = new System.Drawing.Point(3, 52);
+            this.lblTabNum.Location = new System.Drawing.Point(3, 104);
             this.lblTabNum.Name = "lblTabNum";
             this.lblTabNum.Size = new System.Drawing.Size(79, 26);
             this.lblTabNum.TabIndex = 2;
@@ -547,7 +571,8 @@ namespace WF.coursework
             // tbSurname
             // 
             this.tbSurname.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbSurname.Location = new System.Drawing.Point(88, 3);
+            this.tbSurname.Enabled = false;
+            this.tbSurname.Location = new System.Drawing.Point(88, 55);
             this.tbSurname.Name = "tbSurname";
             this.tbSurname.Size = new System.Drawing.Size(159, 20);
             this.tbSurname.TabIndex = 8;
@@ -555,7 +580,8 @@ namespace WF.coursework
             // dtpDateHired
             // 
             this.dtpDateHired.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtpDateHired.Location = new System.Drawing.Point(88, 159);
+            this.dtpDateHired.Enabled = false;
+            this.dtpDateHired.Location = new System.Drawing.Point(88, 237);
             this.dtpDateHired.Name = "dtpDateHired";
             this.dtpDateHired.Size = new System.Drawing.Size(159, 20);
             this.dtpDateHired.TabIndex = 14;
@@ -564,19 +590,20 @@ namespace WF.coursework
             // 
             this.lblUserDepartment.AutoSize = true;
             this.lblUserDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblUserDepartment.Location = new System.Drawing.Point(3, 78);
+            this.lblUserDepartment.Location = new System.Drawing.Point(3, 130);
             this.lblUserDepartment.Name = "lblUserDepartment";
             this.lblUserDepartment.Size = new System.Drawing.Size(79, 26);
             this.lblUserDepartment.TabIndex = 15;
-            this.lblUserDepartment.Text = "Департамент:";
+            this.lblUserDepartment.Text = "Отдел:";
             this.lblUserDepartment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // cbUserDepartment
             // 
             this.cbUserDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbUserDepartment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbUserDepartment.Enabled = false;
             this.cbUserDepartment.FormattingEnabled = true;
-            this.cbUserDepartment.Location = new System.Drawing.Point(88, 81);
+            this.cbUserDepartment.Location = new System.Drawing.Point(88, 133);
             this.cbUserDepartment.Name = "cbUserDepartment";
             this.cbUserDepartment.Size = new System.Drawing.Size(159, 21);
             this.cbUserDepartment.TabIndex = 16;
@@ -585,7 +612,7 @@ namespace WF.coursework
             // btnAddDepartment
             // 
             this.btnAddDepartment.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAddDepartment.Location = new System.Drawing.Point(253, 81);
+            this.btnAddDepartment.Location = new System.Drawing.Point(253, 133);
             this.btnAddDepartment.Name = "btnAddDepartment";
             this.btnAddDepartment.Size = new System.Drawing.Size(69, 20);
             this.btnAddDepartment.TabIndex = 17;
@@ -596,7 +623,8 @@ namespace WF.coursework
             // tbPassword
             // 
             this.tbPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbPassword.Location = new System.Drawing.Point(88, 237);
+            this.tbPassword.Enabled = false;
+            this.tbPassword.Location = new System.Drawing.Point(88, 29);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(159, 20);
             this.tbPassword.TabIndex = 19;
@@ -605,7 +633,7 @@ namespace WF.coursework
             // 
             this.lblLogin.AutoSize = true;
             this.lblLogin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblLogin.Location = new System.Drawing.Point(3, 208);
+            this.lblLogin.Location = new System.Drawing.Point(3, 0);
             this.lblLogin.Name = "lblLogin";
             this.lblLogin.Size = new System.Drawing.Size(79, 26);
             this.lblLogin.TabIndex = 21;
@@ -616,7 +644,7 @@ namespace WF.coursework
             // 
             this.lblPassword.AutoSize = true;
             this.lblPassword.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblPassword.Location = new System.Drawing.Point(3, 234);
+            this.lblPassword.Location = new System.Drawing.Point(3, 26);
             this.lblPassword.Name = "lblPassword";
             this.lblPassword.Size = new System.Drawing.Size(79, 26);
             this.lblPassword.TabIndex = 22;
@@ -626,7 +654,8 @@ namespace WF.coursework
             // tbLogin
             // 
             this.tbLogin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbLogin.Location = new System.Drawing.Point(88, 211);
+            this.tbLogin.Enabled = false;
+            this.tbLogin.Location = new System.Drawing.Point(88, 3);
             this.tbLogin.Name = "tbLogin";
             this.tbLogin.Size = new System.Drawing.Size(159, 20);
             this.tbLogin.TabIndex = 20;
@@ -676,44 +705,66 @@ namespace WF.coursework
             // 
             // tpChart
             // 
-            this.tpChart.Controls.Add(this.tableLayoutPanel1);
+            this.tpChart.BackColor = System.Drawing.SystemColors.Window;
+            this.tpChart.Controls.Add(this.panelGanttElement);
             this.tpChart.Controls.Add(this.button2);
             this.tpChart.Controls.Add(this.button1);
             this.tpChart.Controls.Add(this.btnAddProject);
-            this.tpChart.Controls.Add(this.listBox2);
-            this.tpChart.Controls.Add(this.label12);
-            this.tpChart.Controls.Add(this.label11);
-            this.tpChart.Controls.Add(this.label10);
-            this.tpChart.Controls.Add(this.label9);
-            this.tpChart.Controls.Add(this.label8);
-            this.tpChart.Controls.Add(this.label7);
-            this.tpChart.Controls.Add(this.label6);
-            this.tpChart.Controls.Add(this.label5);
-            this.tpChart.Controls.Add(this.label4);
-            this.tpChart.Controls.Add(this.label3);
-            this.tpChart.Controls.Add(this.label2);
-            this.tpChart.Controls.Add(this.label1);
-            this.tpChart.Controls.Add(this.lbProjects);
             this.tpChart.Location = new System.Drawing.Point(4, 22);
             this.tpChart.Name = "tpChart";
             this.tpChart.Size = new System.Drawing.Size(931, 418);
             this.tpChart.TabIndex = 2;
             this.tpChart.Text = "График проектов";
-            this.tpChart.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
+            // panelGanttElement
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(130, 169);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 100);
-            this.tableLayoutPanel1.TabIndex = 17;
+            this.panelGanttElement.BackColor = System.Drawing.SystemColors.Window;
+            this.panelGanttElement.Controls.Add(this.panelGantt);
+            this.panelGanttElement.Controls.Add(this.btnChangeGantt);
+            this.panelGanttElement.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelGanttElement.Location = new System.Drawing.Point(0, 0);
+            this.panelGanttElement.Name = "panelGanttElement";
+            this.panelGanttElement.Size = new System.Drawing.Size(931, 206);
+            this.panelGanttElement.TabIndex = 18;
+            // 
+            // panelGantt
+            // 
+            this.panelGantt.Controls.Add(this.panelMonth);
+            this.panelGantt.Controls.Add(this.panelYear);
+            this.panelGantt.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelGantt.Location = new System.Drawing.Point(59, 0);
+            this.panelGantt.Name = "panelGantt";
+            this.panelGantt.Size = new System.Drawing.Size(872, 206);
+            this.panelGantt.TabIndex = 17;
+            // 
+            // panelMonth
+            // 
+            this.panelMonth.BackColor = System.Drawing.SystemColors.Window;
+            this.panelMonth.Location = new System.Drawing.Point(622, 51);
+            this.panelMonth.Name = "panelMonth";
+            this.panelMonth.Size = new System.Drawing.Size(100, 100);
+            this.panelMonth.TabIndex = 1;
+            this.panelMonth.Visible = false;
+            // 
+            // panelYear
+            // 
+            this.panelYear.BackColor = System.Drawing.SystemColors.Window;
+            this.panelYear.ForeColor = System.Drawing.SystemColors.Window;
+            this.panelYear.Location = new System.Drawing.Point(200, 51);
+            this.panelYear.Name = "panelYear";
+            this.panelYear.Size = new System.Drawing.Size(100, 100);
+            this.panelYear.TabIndex = 0;
+            this.panelYear.Visible = false;
+            // 
+            // btnChangeGantt
+            // 
+            this.btnChangeGantt.Location = new System.Drawing.Point(3, 3);
+            this.btnChangeGantt.Name = "btnChangeGantt";
+            this.btnChangeGantt.Size = new System.Drawing.Size(50, 23);
+            this.btnChangeGantt.TabIndex = 3;
+            this.btnChangeGantt.Text = "Месяц";
+            this.btnChangeGantt.UseVisualStyleBackColor = true;
+            this.btnChangeGantt.Click += new System.EventHandler(this.btnChangeGantt_Click);
             // 
             // button2
             // 
@@ -748,133 +799,6 @@ namespace WF.coursework
             this.btnAddProject.Text = "Добавить проект";
             this.btnAddProject.UseVisualStyleBackColor = true;
             // 
-            // listBox2
-            // 
-            this.listBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Items.AddRange(new object[] {
-            resources.GetString("listBox2.Items")});
-            this.listBox2.Location = new System.Drawing.Point(117, 32);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(711, 130);
-            this.listBox2.TabIndex = 13;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(768, 16);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(52, 13);
-            this.label12.TabIndex = 12;
-            this.label12.Text = "Декабрь";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(717, 16);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(45, 13);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "Ноябрь";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(661, 16);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(50, 13);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Октябрь";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(587, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(55, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Сентябрь";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(540, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 13);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Август";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(485, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Июль";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(426, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Июнь";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(369, 16);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(28, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Май";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(304, 16);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Апрель";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(251, 16);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Март";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(178, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Февраль";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(127, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Январь";
-            // 
-            // lbProjects
-            // 
-            this.lbProjects.FormattingEnabled = true;
-            this.lbProjects.Location = new System.Drawing.Point(8, 32);
-            this.lbProjects.Name = "lbProjects";
-            this.lbProjects.Size = new System.Drawing.Size(103, 134);
-            this.lbProjects.TabIndex = 0;
-            // 
             // tpMyVacation
             // 
             this.tpMyVacation.Controls.Add(this.dgwVacation);
@@ -896,16 +820,17 @@ namespace WF.coursework
             // 
             this.dgwVacation.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgwVacation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwVacation.Location = new System.Drawing.Point(244, 230);
+            this.dgwVacation.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgwVacation.Location = new System.Drawing.Point(3, 235);
             this.dgwVacation.Name = "dgwVacation";
-            this.dgwVacation.Size = new System.Drawing.Size(645, 180);
+            this.dgwVacation.Size = new System.Drawing.Size(925, 180);
             this.dgwVacation.TabIndex = 14;
             // 
             // cbApplications
             // 
             this.cbApplications.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbApplications.FormattingEnabled = true;
-            this.cbApplications.Location = new System.Drawing.Point(1, 120);
+            this.cbApplications.Location = new System.Drawing.Point(5, 120);
             this.cbApplications.Name = "cbApplications";
             this.cbApplications.Size = new System.Drawing.Size(121, 21);
             this.cbApplications.TabIndex = 13;
@@ -913,7 +838,7 @@ namespace WF.coursework
             // 
             // btnChangeVacation
             // 
-            this.btnChangeVacation.Location = new System.Drawing.Point(127, 118);
+            this.btnChangeVacation.Location = new System.Drawing.Point(131, 119);
             this.btnChangeVacation.Margin = new System.Windows.Forms.Padding(2);
             this.btnChangeVacation.Name = "btnChangeVacation";
             this.btnChangeVacation.Size = new System.Drawing.Size(112, 23);
@@ -946,9 +871,9 @@ namespace WF.coursework
             this.lblBalance.AutoSize = true;
             this.lblBalance.Location = new System.Drawing.Point(8, 37);
             this.lblBalance.Name = "lblBalance";
-            this.lblBalance.Size = new System.Drawing.Size(136, 13);
+            this.lblBalance.Size = new System.Drawing.Size(118, 13);
             this.lblBalance.TabIndex = 7;
-            this.lblBalance.Text = "Баланс на 0000 год: 9999";
+            this.lblBalance.Text = "Баланс на 0000 год: 0";
             // 
             // dgvApplication
             // 
@@ -957,9 +882,9 @@ namespace WF.coursework
             this.dgvApplication.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_application,
             this.count_vacation});
-            this.dgvApplication.Location = new System.Drawing.Point(244, 12);
+            this.dgvApplication.Location = new System.Drawing.Point(299, 0);
             this.dgvApplication.Name = "dgvApplication";
-            this.dgvApplication.Size = new System.Drawing.Size(351, 180);
+            this.dgvApplication.Size = new System.Drawing.Size(632, 186);
             this.dgvApplication.TabIndex = 0;
             // 
             // id_application
@@ -1460,7 +1385,8 @@ namespace WF.coursework
             this.gbDepartment.ResumeLayout(false);
             this.gbDepartment.PerformLayout();
             this.tpChart.ResumeLayout(false);
-            this.tpChart.PerformLayout();
+            this.panelGanttElement.ResumeLayout(false);
+            this.panelGantt.ResumeLayout(false);
             this.tpMyVacation.ResumeLayout(false);
             this.tpMyVacation.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwVacation)).EndInit();
@@ -1528,20 +1454,6 @@ namespace WF.coursework
         private System.Windows.Forms.ListBox lbUsers;
         private System.Windows.Forms.Label lblDepartment;
         private System.Windows.Forms.TabPage tpChart;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox lbProjects;
         private System.Windows.Forms.TabPage tpMyVacation;
         private System.Windows.Forms.ComboBox cbApplications;
         private System.Windows.Forms.Button btnChangeVacation;
@@ -1598,7 +1510,6 @@ namespace WF.coursework
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAddProject;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox chbManadger;
         private System.Windows.Forms.CheckBox chbAdmin;
         private System.Windows.Forms.TextBox tbPassword;
@@ -1606,5 +1517,12 @@ namespace WF.coursework
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbLogin;
         private System.Windows.Forms.Button btnChangeInfo;
+        private System.Windows.Forms.TextBox tbMail;
+        private System.Windows.Forms.Label lbMail;
+        private System.Windows.Forms.Button btnChangeGantt;
+        private System.Windows.Forms.Panel panelGantt;
+        private System.Windows.Forms.Panel panelMonth;
+        private System.Windows.Forms.Panel panelYear;
+        private System.Windows.Forms.Panel panelGanttElement;
     }
 }

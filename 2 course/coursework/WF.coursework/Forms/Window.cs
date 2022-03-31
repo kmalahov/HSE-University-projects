@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -63,14 +64,19 @@ namespace WF.coursework
         }
 
         private void Window_Load(object sender, EventArgs e)
-        {            
+        {
             sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["BD.coursework"].ConnectionString);
             sqlConnection.Open();
 
+            Update_applicationForVacations();
             Update_dgvApplication();
+
+            Gantt_chart_year_load();
+
             Update_departments();
             Update_posts();
             Update_gender();
+
             Update_applications();
             //загугли как вносить данные из sql в datagrid view         
 
@@ -95,6 +101,8 @@ namespace WF.coursework
             }
             catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
+
+        #region Взаимодействие с окном
 
         #region Движение окна
         private bool dragging = false;
@@ -138,6 +146,8 @@ namespace WF.coursework
         }
         #endregion
 
+        #endregion
+
         #region Мои отпуска
         private void btnAddVacation_Click(object sender, EventArgs e)
         {
@@ -177,7 +187,23 @@ namespace WF.coursework
 
         private void Update_applicationForVacations()
         {
+            cbApplications.Items.Clear();
 
+            try
+            {
+                SqlCommand DPTcmd = new SqlCommand($"SELECT * FROM [Application_for_vacation] WHERE id_worker = {user_id}", sqlConnection);
+                SqlDataReader reader = DPTcmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    cbApplications.Items.Add(reader.GetDateTime(1).ToString());
+                }
+                //if(cbDepartment.SelectedItem != null)
+                //{
+                //    MessageBox.Show(cbDepartment.Text);
+                //}
+                reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"Update my applications\nSQL Application for vacation\n{ex.Message}"); }
         }
 
         private void cbApplications_SelectedIndexChanged(object sender, EventArgs e)
@@ -204,13 +230,124 @@ namespace WF.coursework
         #endregion
 
         #region Проекты
+        GanttChart ganttChart_year;
+        GanttChart ganttChart_mounth;
 
+        private void Gantt_chart_year_load()
+        {
+            panelMonth.Visible = false;
+            panelYear.Visible = true;
+
+            panelMonth.Dock = DockStyle.Right;
+            panelYear.Dock = DockStyle.Fill;
+
+            ganttChart_year = new GanttChart();
+            ganttChart_year.AllowChange = false;
+            ganttChart_year.Dock = DockStyle.Fill;
+            ganttChart_year.FromDate = new DateTime(2015, 1, 1, 0, 0, 0);
+            ganttChart_year.ToDate = new DateTime(2015, 12, 31, 0, 0, 0);
+            panelYear.Controls.Add(ganttChart_year);
+
+            ganttChart_year.MouseMove += new MouseEventHandler(ganttChart_year.GanttChart_MouseMove);
+            ganttChart_year.MouseDragged += new MouseEventHandler(ganttChart_year.GanttChart_MouseDragged);
+            ganttChart_year.MouseLeave += new EventHandler(ganttChart_year.GanttChart_MouseLeave);
+            //ganttChart3.ToolTip.Draw += new DrawToolTipEventHandler(ganttChart3.ToolTipText_Draw);
+            //ganttChart3.ToolTip.Popup += new PopupEventHandler(ganttChart3.ToolTipText_Popup);
+            //ganttChart_year.ContextMenuStrip = ContextMenuGanttChart1;
+
+
+            List<BarInformation> lst3 = new List<BarInformation>();
+
+            lst3.Add(new BarInformation("Row 1", new DateTime(2015, 1, 1), new DateTime(2015, 5, 1), Color.Gray, Color.LightGray, 0));
+            lst3.Add(new BarInformation("Row 2", new DateTime(2015, 1, 1), new DateTime(2015, 7, 1), Color.Gray, Color.LightGray, 1));
+            lst3.Add(new BarInformation("Row 3", new DateTime(2015, 5, 1), new DateTime(2015, 8, 1), Color.Gray, Color.LightGray, 2));
+            lst3.Add(new BarInformation("Row 2", new DateTime(2015, 10, 1), new DateTime(2015, 12, 1), Color.Gray, Color.LightGray, 3));
+            lst3.Add(new BarInformation("Row 2", new DateTime(2015, 10, 1), new DateTime(2015, 12, 1), Color.Gray, Color.LightGray, 3));
+            lst3.Add(new BarInformation("Row 2", new DateTime(2015, 10, 1), new DateTime(2015, 12, 1), Color.Gray, Color.LightGray, 3));
+            lst3.Add(new BarInformation("Row 1", new DateTime(2015, 8, 1), new DateTime(2016, 01, 1), Color.Gray, Color.LightGray, 4));
+
+            foreach (BarInformation bar in lst3)
+            {
+                ganttChart_year.AddChartBar(bar.RowText, bar, bar.FromTime, bar.ToTime, bar.Color, bar.HoverColor, bar.Index);
+            }
+        }
+
+        private void Gantt_chart_mounth_load()
+        {
+            panelMonth.Visible = true;
+            panelYear.Visible = false;
+
+            panelYear.Dock = DockStyle.Right;
+            panelMonth.Dock = DockStyle.Fill;
+
+            ganttChart_mounth = new GanttChart();
+            ganttChart_mounth.AllowChange = false;
+            ganttChart_mounth.Dock = DockStyle.Fill;
+            ganttChart_mounth.FromDate = new DateTime(2015, 12, 12, 0, 0, 0);
+            ganttChart_mounth.ToDate = new DateTime(2015, 12, 24, 0, 0, 0);
+            panelMonth.Controls.Add(ganttChart_mounth);
+
+            ganttChart_mounth.MouseMove += new MouseEventHandler(ganttChart_mounth.GanttChart_MouseMove);
+            ganttChart_mounth.MouseMove += new MouseEventHandler(GanttChartMounth_MouseMove);
+            ganttChart_mounth.MouseDragged += new MouseEventHandler(ganttChart_mounth.GanttChart_MouseDragged);
+            ganttChart_mounth.MouseLeave += new EventHandler(ganttChart_mounth.GanttChart_MouseLeave);
+            //ganttChart1.ContextMenuStrip = ContextMenuGanttChart1;
+
+            List<BarInformation> lst1 = new List<BarInformation>();
+
+            lst1.Add(new BarInformation("Row 1", new DateTime(2015, 12, 12), new DateTime(2015, 12, 16), Color.Aqua, Color.Khaki, 0));
+            lst1.Add(new BarInformation("Row 2", new DateTime(2015, 12, 13), new DateTime(2015, 12, 20), Color.AliceBlue, Color.Khaki, 1));
+            lst1.Add(new BarInformation("Row 3", new DateTime(2015, 12, 14), new DateTime(2015, 12, 24), Color.Violet, Color.Khaki, 2));
+            lst1.Add(new BarInformation("Row 2", new DateTime(2015, 12, 21), new DateTime(2015, 12, 22, 12, 0, 0), Color.Yellow, Color.Khaki, 1));
+            lst1.Add(new BarInformation("Row 1", new DateTime(2015, 12, 17), new DateTime(2015, 12, 24), Color.LawnGreen, Color.Khaki, 0));
+
+            foreach (BarInformation bar in lst1)
+            {
+                ganttChart_mounth.AddChartBar(bar.RowText, bar, bar.FromTime, bar.ToTime, bar.Color, bar.HoverColor, bar.Index);
+            }
+        }
+
+        private void GanttChartMounth_MouseMove(Object sender, MouseEventArgs e)
+        {
+            List<string> toolTipText = new List<string>();
+
+            if (ganttChart_mounth.MouseOverRowText.Length > 0)
+            {
+                BarInformation val = (BarInformation)ganttChart_mounth.MouseOverRowValue;
+                toolTipText.Add("[b]Date:");
+                toolTipText.Add("From ");
+                toolTipText.Add(val.FromTime.ToLongDateString() + " - " + val.FromTime.ToString("HH:mm"));
+                toolTipText.Add("To ");
+                toolTipText.Add(val.ToTime.ToLongDateString() + " - " + val.ToTime.ToString("HH:mm"));
+            }
+            else
+            {
+                toolTipText.Add("");
+            }
+
+            ganttChart_mounth.ToolTipTextTitle = ganttChart_mounth.MouseOverRowText;
+            ganttChart_mounth.ToolTipText = toolTipText;
+        }
+
+        private void btnChangeGantt_Click(object sender, EventArgs e)
+        {
+            if (btnChangeGantt.Text == "Месяц")
+            {
+                btnChangeGantt.Text = "Год";
+                Gantt_chart_mounth_load();
+            }   
+            else if (btnChangeGantt.Text == "Год")
+            {
+                btnChangeGantt.Text = "Месяц";
+                Gantt_chart_year_load();
+            }    
+        }
         #endregion
 
         #region Подразделения
         private void cbDepartment_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Update_workers(cbDepartment.Text);
+            Update_workers();
             //делаем запрос и проверку как с логином
             //command.Parameters.AddWithValue("что то", cbDepartment.Text);
             //for(int i, i <= table.Rows.Count, i++)
@@ -218,7 +355,7 @@ namespace WF.coursework
             //lbUsers.Items.Add([название в таблице].имя\фамилия\таб номер);
         }
 
-        private void Update_workers(string input)
+        private void Update_workers()
         {
             lbUsers.Items.Clear();
 
@@ -244,7 +381,7 @@ namespace WF.coursework
                 lbUsers.BeginUpdate();
                 while (dataReader.Read())
                 {
-                    lbUsers.Items.Add(dataReader.GetString(1));
+                    lbUsers.Items.Add($"{dataReader.GetString(1).Replace(" ", "")} {dataReader.GetString(2).Replace(" ", "")} [{dataReader.GetInt32(0)}]");
                 }
                 lbUsers.EndUpdate();
             }
@@ -254,9 +391,168 @@ namespace WF.coursework
         private void lbUsers_SelectedIndexChanged(object sender, EventArgs e)
         {
             Clear_worker_fields();
-            lblUserID.Text = $"ID: 9999";
-            string selected = lbUsers.SelectedItem.ToString();
-            MessageBox.Show(selected);
+            btnDeleteUser.Enabled = true;
+
+            int id_worker = 0;
+            int id_department = 0;
+            int id_post = 0;
+            int id_gender = 0;
+
+            string tabWorker_department = String.Empty;
+            string tabWorker_post = String.Empty;
+            string tabWorker_gender = String.Empty;
+            int tabWorker_admin = 0;
+            int tabWorker_manager = 0;
+
+            if (lbUsers.SelectedItem != null || lbUsers.SelectedIndex >= 0)
+                id_worker = Convert.ToInt32(lbUsers.SelectedItem.ToString().Replace("[", "").Replace("]", "").Split(' ')[2]);
+            else
+                return;
+
+            lblUserID.Text = $"ID: {id_worker}";
+
+            SqlCommand command = new SqlCommand($"SELECT * FROM [Workers] WHERE id_worker = {id_worker}", sqlConnection);
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        tbSurname.Text = reader.GetString(1);
+                        tbName.Text = reader.GetString(2);
+                        if (reader.IsDBNull(4) == true)
+                            tbTabNum.Text = "0";
+                        else
+                            tbTabNum.Text = reader.GetString(4);
+
+                        id_department = reader.GetInt32(10);
+                        id_post = reader.GetInt32(5);
+
+                        if (reader.IsDBNull(6) == true)
+                            tbMail.Text = "0";
+                        else
+                            tbMail.Text = reader.GetString(6);
+
+                        if (reader.IsDBNull(7) == true)
+                            tbPhone.Text = "0";
+                        else
+                            tbPhone.Text = reader.GetInt32(7).ToString();
+
+                        dtpDateHired.Value = reader.GetDateTime(8);
+                        id_gender = reader.GetInt32(9);
+
+                        //нет поля менеджер
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"SQL Workers {ex.Message}"); }
+
+            SqlCommand login_command = new SqlCommand($"SELECT * FROM [log_pass] WHERE id_worker = {id_worker}", sqlConnection);
+            try
+            {
+                SqlDataReader login_reader = login_command.ExecuteReader();
+                if (login_reader.HasRows)
+                {
+                    while (login_reader.Read())
+                    {
+                        tbLogin.Text = login_reader.GetString(1);
+                        tbPassword.Text = login_reader.GetString(2);
+                        tabWorker_admin = login_reader.GetInt32(4);
+                    }
+                }
+                login_reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"SQL Login {ex.Message}"); }
+
+            SqlCommand department_command = new SqlCommand($"SELECT * FROM [Department] WHERE id_department = {id_department}", sqlConnection);
+            try
+            {
+                SqlDataReader department_reader = department_command.ExecuteReader();
+                if (department_reader.HasRows)
+                {
+                    while (department_reader.Read())
+                    {
+                        tabWorker_department = department_reader.GetString(1);
+                    }
+                }
+                department_reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"SQL Department {ex.Message}"); }
+
+            SqlCommand post_command = new SqlCommand($"SELECT * FROM [Posts] WHERE id_post = {id_post}", sqlConnection);
+            try
+            {
+                SqlDataReader post_reader = post_command.ExecuteReader();
+                if (post_reader.HasRows)
+                {
+                    while (post_reader.Read())
+                    {
+                        tabWorker_post = post_reader.GetString(1);
+                    }
+                }
+                post_reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"SQL Posts {ex.Message}"); }
+
+            SqlCommand gender_command = new SqlCommand($"SELECT * FROM [gender] WHERE id_gender = {id_gender}", sqlConnection);
+            try
+            {
+                SqlDataReader gender_reader = gender_command.ExecuteReader();
+                if (gender_reader.HasRows)
+                {
+                    while (gender_reader.Read())
+                    {
+                        tabWorker_gender = gender_reader.GetString(1);
+                    }
+                }
+                gender_reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"SQL Gender {ex.Message}"); }
+
+            //tabWorker_departament = tabWorker_departament.Replace(" ", "");
+            //tabWorker_post = tabWorker_post.Replace(" ", "");
+            //tabWorker_gender = tabWorker_gender.Replace(" ", "");
+
+            if (!string.IsNullOrEmpty(tabWorker_department))
+            {
+                int index = cbUserDepartment.FindStringExact(tabWorker_department);
+                if (index != ListBox.NoMatches)
+                    cbUserDepartment.SelectedIndex = index;
+                else
+                    MessageBox.Show("Департамент не найден");
+            }
+            else
+                return;
+
+            if (!string.IsNullOrEmpty(tabWorker_post))
+            {
+                int index = cbPost.FindStringExact(tabWorker_post);
+                if (index != ListBox.NoMatches)
+                    cbPost.SelectedIndex = index;
+                else
+                    MessageBox.Show("Должность не найдена");
+            }
+            else
+                return;
+            if (!string.IsNullOrEmpty(tabWorker_gender))
+            {
+                int index = cbGender.FindStringExact(tabWorker_gender);
+                if (index != ListBox.NoMatches)
+                    cbGender.SelectedIndex = index;
+                else
+                    MessageBox.Show("Пол не найден");
+            }
+            else
+                return;
+
+            if (tabWorker_admin == 1)
+                chbAdmin.Checked = true;
+            else
+                chbAdmin.Checked = false;
+
+
             //запрос на получение чела по таб номеру из лист бокса
             //потом добавляем все его данные из таблицы в комбобоксы
         }
@@ -295,16 +591,21 @@ namespace WF.coursework
             if (add_data.ShowDialog() == DialogResult.OK)
             {
                 new_department = add_data.callback;
-                cbUserDepartment.Text = new_department;
-                //запрос на добавление нового депратамента                
-            }
-            SqlCommand command = new SqlCommand($"INSERT INTO {name} (department) " + $"VALUES (@department)", sqlConnection);
-            command.Parameters.AddWithValue("department", new_department);
-            MessageBox.Show($"Добавлено {command.ExecuteNonQuery()} значений в таблицу {name}",
-                $"Добавление в базу данных",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+                if (new_department != "" || new_department != String.Empty)
+                {
+                    cbUserDepartment.Text = new_department;
+                    SqlCommand command = new SqlCommand($"INSERT INTO {name} (department) " + $"VALUES (@department)", sqlConnection);
 
+                    command.Parameters.AddWithValue("department", new_department);
+                    MessageBox.Show($"Добавлено {command.ExecuteNonQuery()} значений в таблицу {name}",
+                        $"Добавление в базу данных",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    //запрос на добавление нового депратамента  
+                }
+                else
+                    return;
+            }
             Update_departments();
         }
 
@@ -365,18 +666,24 @@ namespace WF.coursework
             if (add_data.ShowDialog() == DialogResult.OK)
             {
                 new_post = add_data.callback;
-                cbUserDepartment.Text = new_post;
-                //сделть запрос на добавление новой должности
-                //и на удаление
-                //все то же самое что наверху
+                if (new_post != "" || new_post != String.Empty)
+                {
+                    cbUserDepartment.Text = new_post;
+                    SqlCommand command = new SqlCommand($"INSERT INTO [Posts] (post) " + $"VALUES (@post )", sqlConnection);
+                    command.Parameters.AddWithValue("post", new_post);
+                    MessageBox.Show($"Добавлено {command.ExecuteNonQuery()} значений в таблицу [Posts]",
+                        $"Добавление в базу данных",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    Update_posts();
+                    //сделть запрос на добавление новой должности
+                    //и на удаление
+                    //все то же самое что наверху
+                }
+                else
+                    return;
             }
-            SqlCommand command = new SqlCommand($"INSERT INTO [Posts] (post) " + $"VALUES (@post )", sqlConnection);
-            command.Parameters.AddWithValue("post", new_post);
-            MessageBox.Show($"Добавлено {command.ExecuteNonQuery()} значений в таблицу [Posts]",
-                $"Добавление в базу данных",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-            Update_posts();
+            
         }
 
         private void btnDeletePost_Click(object sender, EventArgs e)
@@ -409,7 +716,43 @@ namespace WF.coursework
         private void btnNewUser_Click(object sender, EventArgs e)
         {
             Clear_worker_fields();
-            btnAddUser.Enabled = true;
+            if (btnNewUser.Text == "Новый работник")
+            {
+                btnNewUser.Text = "Отменить";
+                tbSurname.Enabled = true;
+                tbName.Enabled = true;
+                tbTabNum.Enabled = true;
+                cbUserDepartment.Enabled = true;
+                cbPost.Enabled = true;
+                tbPhone.Enabled = true;
+                dtpDateHired.Enabled = true;
+                cbGender.Enabled = true;
+                tbLogin.Enabled = true;
+                tbPassword.Enabled = true;
+                chbAdmin.Enabled = true;
+                chbManadger.Enabled = true;
+
+                btnAddUser.Enabled = true;
+                btnDeleteUser.Enabled = false;
+            }
+            else if (btnNewUser.Text == "Отменить")
+            {
+                btnNewUser.Text = "Новый работник";
+                tbSurname.Enabled = false;
+                tbName.Enabled = false;
+                tbTabNum.Enabled = false;
+                cbUserDepartment.Enabled = false;
+                cbPost.Enabled = false;
+                tbPhone.Enabled = false;
+                dtpDateHired.Enabled = false;
+                cbGender.Enabled = false;
+                tbLogin.Enabled = false;
+                tbPassword.Enabled = false;
+                chbAdmin.Enabled = false;
+                chbManadger.Enabled = false;
+
+                btnAddUser.Enabled = false;
+            }
         }
 
         private void btnChangeInfo_Click(object sender, EventArgs e)
@@ -417,34 +760,37 @@ namespace WF.coursework
             if (btnChangeInfo.Text == "Изменить")
             {
                 btnChangeInfo.Text = "Отменить";
+                chbAdmin.Enabled = true;
+                chbManadger.Enabled = true;
                 tbSurname.Enabled = true;
                 tbName.Enabled = true;
                 tbTabNum.Enabled = true;
-                cbDepartment.Enabled = true;
+                cbUserDepartment.Enabled = true;
                 cbPost.Enabled = true;
+                tbMail.Enabled = true;
                 tbPhone.Enabled = true;
                 dtpDateHired.Enabled = true;
                 cbGender.Enabled = true;
                 tbPassword.Enabled = true;
-                chbAdmin.Enabled = true;
-                chbManadger.Enabled = true;
 
                 btnChangeUserInfo.Enabled = true;
+                btnDeleteUser.Enabled = false;
             }
             else if (btnChangeInfo.Text == "Отменить")
             {
                 btnChangeInfo.Text = "Изменить";
+                chbAdmin.Enabled = false;
+                chbManadger.Enabled = false;
                 tbSurname.Enabled = false;
                 tbName.Enabled = false;
                 tbTabNum.Enabled = false;
-                cbDepartment.Enabled = false;
+                cbUserDepartment.Enabled = false;
                 cbPost.Enabled = false;
+                tbMail.Enabled = false;
                 tbPhone.Enabled = false;
                 dtpDateHired.Enabled = false;
                 cbGender.Enabled = false;
                 tbPassword.Enabled = false;
-                chbAdmin.Enabled = false;
-                chbManadger.Enabled = false;
 
                 btnChangeUserInfo.Enabled = false;
             }
@@ -456,15 +802,25 @@ namespace WF.coursework
             tbSurname.Clear();
             tbName.Clear();
             tbTabNum.Clear();
-            Update_departments();
-            Update_posts();
+            tbMail.Clear();
             tbPhone.Clear();
             dtpDateHired.Value = DateTime.Now;
-            Update_gender();
             tbLogin.Clear();
             tbPassword.Clear();
             chbAdmin.Checked = false;
             chbManadger.Checked = false;
+            chbAdmin.Enabled = false;
+            chbManadger.Enabled = false;
+            tbSurname.Enabled = false;
+            tbName.Enabled = false;
+            tbTabNum.Enabled = false;
+            cbUserDepartment.Enabled = false;
+            cbPost.Enabled = false;
+            tbMail.Enabled = false;
+            tbPhone.Enabled = false;
+            dtpDateHired.Enabled = false;
+            cbGender.Enabled = false;
+            tbPassword.Enabled = false;
 
             btnChangeInfo.Text = "Изменить";
             btnAddUser.Enabled = false;

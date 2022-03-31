@@ -48,3 +48,31 @@ C:\Users\malah\Documents\ВШЭ 2 Курс\Курсовая\WF.coursework\WF.cou
 C:\Users\malah\Documents\ВШЭ 2 Курс\Курсовая\WF.coursework\WF.coursework\obj\Debug\WF.coursework.Window.resources
 C:\Users\malah\Documents\ВШЭ 2 Курс\Курсовая\WF.coursework\WF.coursework\obj\Debug\WF.coursework.AddData.resources
 C:\Users\malah\Documents\ВШЭ 2 Курс\Курсовая\WF.coursework\WF.coursework\obj\Debug\WF.coursework.AddApplication.resources
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\WF.coursework.exe.config
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\WF.coursework.exe
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\WF.coursework.pdb
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\MySqlConnector.dll
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Buffers.dll
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Memory.dll
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\MySqlConnector.xml
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Buffers.xml
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Diagnostics.DiagnosticSource.xml
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Memory.xml
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.csproj.AssemblyReference.cache
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.AddApplication.resources
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.AddData.resources
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.LoginForm.resources
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.Window.resources
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.Properties.Resources.resources
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.csproj.GenerateResource.cache
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.csproj.CoreCompileInputs.cache
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.csproj.CopyComplete
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.exe
+C:\Users\malah\Documents\GitHub\HSE-University-projects\2 course\coursework\WF.coursework\obj\Debug\WF.coursework.pdb

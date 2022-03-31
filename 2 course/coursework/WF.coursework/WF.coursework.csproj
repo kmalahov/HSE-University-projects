@@ -75,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>courseworkDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="GanttChart\DataClasses.cs" />
     <Compile Include="Forms\AddApplication.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +99,12 @@
     </Compile>
     <Compile Include="Forms\Window.Designer.cs">
       <DependentUpon>Window.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GanttChart\GanttChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GanttChart\GanttChart.Designer.cs">
+      <DependentUpon>GanttChart.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -155,5 +162,6 @@
   <ItemGroup>
     <None Include="Resources\window-close.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
