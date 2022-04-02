@@ -28,14 +28,14 @@ namespace WF.coursework
             InitializeComponent();
 
             mcPeriodStart.MinDate = DateTime.Now;
-            mcPeriodEnd.MinDate = DateTime.Now;
+            mcPeriodEnd.MinDate = DateTime.Now.AddDays(1);
 
             mcPeriodStart.MaxDate = DateTime.Parse($"31.12.{maxYear}");
             mcPeriodEnd.MaxDate = DateTime.Parse($"31.12.{maxYear}");
 
             period_start = DateTime.Now.ToString("dd.MM.yyyy");
 
-            udDuration.Maximum = (DateTime.Parse($"31.12.{maxYear}") - DateTime.Now).Days + 1;
+            udDuration.Maximum = (DateTime.Parse($"31.12.{maxYear}") - DateTime.Now).Days;
         }
 
         private void AddApplication_Load(object sender, EventArgs e)
@@ -95,6 +95,12 @@ namespace WF.coursework
 
         private void mcPeriodStart_DateSelected(object sender, DateRangeEventArgs e)
         {
+            if (mcPeriodEnd.SelectionStart <= mcPeriodStart.SelectionStart)
+            {
+                mcPeriodEnd.SelectionStart = mcPeriodStart.SelectionStart.AddDays(1);
+                mcPeriodEnd.SelectionEnd = mcPeriodStart.SelectionStart.AddDays(1);
+            }
+
             period_start = mcPeriodStart.SelectionStart.ToString("dd.MM.yyyy");
             Update_text();
         }
@@ -102,6 +108,13 @@ namespace WF.coursework
         private void mcPeriodEnd_DateSelected(object sender, DateRangeEventArgs e)
         {
             DateTime temp_date;
+            DateTime temp_period_start = mcPeriodStart.SelectionStart;
+
+            if (mcPeriodEnd.SelectionStart <= temp_period_start)
+            {
+                mcPeriodEnd.SelectionStart = temp_period_start.AddDays(1);
+                mcPeriodEnd.SelectionEnd = temp_period_start.AddDays(1);
+            }
 
             period_end = mcPeriodEnd.SelectionStart.ToString("dd.MM.yyyy");
             if(period_start == "" || period_start == String.Empty)

@@ -24,8 +24,6 @@ namespace WF.coursework
         public static string user_surname = String.Empty;
         public static int is_admin;
 
-        public static int convert_id_department;
-
         public static int Vacation_balance;
 
         public Window()
@@ -68,6 +66,7 @@ namespace WF.coursework
             sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["BD.coursework"].ConnectionString);
             sqlConnection.Open();
 
+            Update_applications();
             Update_applicationForVacations();
             Update_dgvApplication();
 
@@ -77,7 +76,6 @@ namespace WF.coursework
             Update_posts();
             Update_gender();
 
-            Update_applications();
             //загугли как вносить данные из sql в datagrid view         
 
             //добавить такое на стр387
@@ -149,6 +147,51 @@ namespace WF.coursework
         #endregion
 
         #region Мои отпуска
+        private void Update_dgvApplication()
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("SELECT " +
+                    "Application_for_vacation.id_application, " +
+                    "Application_for_vacation.date_begin_vacation, " +
+                    "Application_for_vacation.vacation_count, " +
+                    "Application_for_vacation.status_application, " +
+                    "Classification_vacation.name_classification " +
+                    "FROM [Application_for_vacation] " +
+                    "INNER JOIN [Classification_vacation] " +
+                    "ON Application_for_vacation.id_classification_vacation = Classification_vacation.id_classification_vacation " +
+                    $"WHERE id_worker = {user_id} " +
+                    "ORDER BY id_application", sqlConnection);
+                SqlDataReader reader = command.ExecuteReader();
+                List<string[]> data = new List<string[]>();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        data.Add(new string[5]);
+
+                        data[data.Count - 1][0] = reader[0].ToString();
+                        data[data.Count - 1][1] = reader.GetDateTime(1).ToString("dd.MM.yyyy");
+                        data[data.Count - 1][2] = reader[2].ToString();
+                        if (reader.GetInt32(3) == 0)
+                            data[data.Count - 1][3] = "На рассмотрении";
+                        else if (reader.GetInt32(3) == 1)
+                            data[data.Count - 1][3] = "На утверждении";
+                        else
+                            data[data.Count - 1][3] = reader[3].ToString();
+                        data[data.Count - 1][4] = reader[4].ToString();
+                    }
+                    reader.Close();
+                }
+                foreach (string[] s in data)
+                {
+                    dgvApplication.Rows.Add(s);
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+        }
+
         private void btnAddVacation_Click(object sender, EventArgs e)
         {
             int id_classification = 0;
@@ -164,25 +207,19 @@ namespace WF.coursework
                 period_start = new_vacation.period_start;
                 period_end = new_vacation.period_end;
                 duration = new_vacation.duration;
+                SqlCommand command = new SqlCommand($"INSERT INTO [Application_for_vacation] (date_begin_vacation, vacation_count, id_worker, status_application, id_classification_vacation) " +
+                    $"VALUES (@date_begin_vacation, @vacation_count, @id_worker, @status_application, @id_classification_vacation)", sqlConnection);
+            
+                DateTime parsed_date = DateTime.Parse(period_start);
+            
+                command.Parameters.AddWithValue("date_begin_vacation", $"{parsed_date.Month}/{parsed_date.Day}/{parsed_date.Year}");
+                command.Parameters.AddWithValue("vacation_count", duration);
+                command.Parameters.AddWithValue("id_worker", user_id);
+                command.Parameters.AddWithValue("status_application", 0);
+                command.Parameters.AddWithValue("id_classification_vacation", id_classification);
+                command.ExecuteNonQuery(); 
+                MessageBox.Show(period_start, duration.ToString());
             }
-            //запрос на добавление нового отпуска
-            SqlCommand command = new SqlCommand($"INSERT INTO [Application_for_vacation] (date_begin_vacation, vacation_count) " +
-                $"VALUES (@date_begin_vacation, @vacation_count)", sqlConnection);
-
-            
-            DateTime parsed_date = DateTime.Parse(period_start);
-
-
-            
-            command.Parameters.AddWithValue("vacation_count", duration);
-            command.Parameters.AddWithValue("date_begin_vacation", $"{parsed_date.Month}/{parsed_date.Day}/{parsed_date.Year}");
-            command.ExecuteNonQuery();
-            MessageBox.Show(period_start, duration.ToString());
-            //command.Parameters.AddWithValue("id_worker", cbVacation_count_reeal.Text);
-            //command.Parameters.AddWithValue("id_status_application", tbID_classification_vacation.Text);
-            //command.Parameters.AddWithValue("id_classification_vacation", tbID_classification_vacation.Text);
-            //, id_worker, id_status_application, id_classification_vacation
-            //@id_worker, @id_status_application, id_classification_vacation
         }
 
         private void Update_applicationForVacations()
@@ -258,6 +295,8 @@ namespace WF.coursework
 
             List<BarInformation> lst3 = new List<BarInformation>();
 
+
+
             lst3.Add(new BarInformation("Row 1", new DateTime(2015, 1, 1), new DateTime(2015, 5, 1), Color.Gray, Color.LightGray, 0));
             lst3.Add(new BarInformation("Row 2", new DateTime(2015, 1, 1), new DateTime(2015, 7, 1), Color.Gray, Color.LightGray, 1));
             lst3.Add(new BarInformation("Row 3", new DateTime(2015, 5, 1), new DateTime(2015, 8, 1), Color.Gray, Color.LightGray, 2));
@@ -331,14 +370,14 @@ namespace WF.coursework
 
         private void btnChangeGantt_Click(object sender, EventArgs e)
         {
-            if (btnChangeGantt.Text == "Месяц")
+            if (btnChangeGantt.Text == "Сотрудники")
             {
-                btnChangeGantt.Text = "Год";
+                btnChangeGantt.Text = "Проект";
                 Gantt_chart_mounth_load();
             }   
-            else if (btnChangeGantt.Text == "Год")
+            else if (btnChangeGantt.Text == "Проект")
             {
-                btnChangeGantt.Text = "Месяц";
+                btnChangeGantt.Text = "Сотрудники";
                 Gantt_chart_year_load();
             }    
         }
@@ -358,6 +397,7 @@ namespace WF.coursework
         private void Update_workers()
         {
             lbUsers.Items.Clear();
+            int id_department = 0;
 
             SqlCommand command = new SqlCommand($"SELECT * FROM [Department] WHERE department LIKE N'{cbDepartment.Text}'", sqlConnection);
             try
@@ -367,14 +407,14 @@ namespace WF.coursework
                 {
                     while (reader.Read())
                     {
-                        convert_id_department = reader.GetInt32(0);
+                        id_department = reader.GetInt32(0);
                     }
                 }
                 reader.Close();
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
 
-            SqlCommand WRKcmd = new SqlCommand($"SELECT * FROM [Workers] WHERE id_department = {convert_id_department}", sqlConnection);
+            SqlCommand WRKcmd = new SqlCommand($"SELECT * FROM [Workers] WHERE department = {id_department}", sqlConnection);
             SqlDataReader dataReader = WRKcmd.ExecuteReader();
             if (dataReader.HasRows)
             {
@@ -557,7 +597,7 @@ namespace WF.coursework
             //потом добавляем все его данные из таблицы в комбобоксы
         }
 
-        #region Департаменты
+        #region Подразделения
         private void Update_departments()
         {
             cbDepartment.Items.Clear();
@@ -613,7 +653,7 @@ namespace WF.coursework
         {
             string to_delete = String.Empty;
 
-            DialogResult result = MessageBox.Show($"Вы уверены в удалении значения: {cbUserDepartment.Text}\nИз таблицы: [Департаменты]", $"Удаление из [Департаменты]", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            DialogResult result = MessageBox.Show($"Вы уверены в удалении значения: {cbUserDepartment.Text}\nИз таблицы: [Департаменты]", $"Удаление из [Департаменты]", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2); ;
             if (result == DialogResult.Yes)
             {
                 SqlCommand command = new SqlCommand($"DELETE FROM Department WHERE department LIKE N'{cbUserDepartment.Text}'", sqlConnection);
@@ -724,6 +764,7 @@ namespace WF.coursework
                 tbTabNum.Enabled = true;
                 cbUserDepartment.Enabled = true;
                 cbPost.Enabled = true;
+                tbMail.Enabled = true;
                 tbPhone.Enabled = true;
                 dtpDateHired.Enabled = true;
                 cbGender.Enabled = true;
@@ -744,6 +785,7 @@ namespace WF.coursework
                 cbUserDepartment.Enabled = false;
                 cbPost.Enabled = false;
                 tbPhone.Enabled = false;
+                tbMail.Enabled = false;
                 dtpDateHired.Enabled = false;
                 cbGender.Enabled = false;
                 tbLogin.Enabled = false;
@@ -846,26 +888,84 @@ namespace WF.coursework
 
         private void btnAddUser_Click(object sender, EventArgs e)
         {
-            string name = "[Workers]";
-            SqlCommand command = new SqlCommand($"INSERT INTO {name} (surname, name, service_number, phone, date_hiring,) " +//id_post
-                $"VALUES (@surname, @name, @service_number, @phone, @date_hiring)", sqlConnection);//@id_post
+            int id_department = 0;
+            int id_post = 0;
+
+            SqlCommand department_command = new SqlCommand($"SELECT * FROM [Department] WHERE department LIKE N'{cbUserDepartment.Text}'", sqlConnection);
+            try
+            {
+                SqlDataReader department_reader = department_command.ExecuteReader();
+                if (department_reader.HasRows)
+                {
+                    while (department_reader.Read())
+                    {
+                        id_department = department_reader.GetInt32(0);
+                    }
+                }
+                department_reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"SQL Department {ex.Message}"); }
+            MessageBox.Show($"{id_department}");
+
+            SqlCommand post_command = new SqlCommand($"SELECT * FROM [Posts] WHERE post LIKE N'{cbPost.Text}'", sqlConnection);
+            try
+            {
+                SqlDataReader post_reader = post_command.ExecuteReader();
+                if (post_reader.HasRows)
+                {
+                    while (post_reader.Read())
+                    {
+                        id_post = post_reader.GetInt32(0);
+                    }
+                }
+                post_reader.Close();
+            }
+            catch (Exception ex) { MessageBox.Show($"SQL Posts {ex.Message}"); }
+            MessageBox.Show($"{id_post}");
+
+            SqlCommand command = new SqlCommand("INSERT INTO [Workers] " +
+                "(surname, name, service_number, post, phone, date_hiring, gender, department) " +
+                "VALUES (@surname, @name, @service_number, " +
+                $"(SELECT id_post FROM Posts WHERE post LIKE N'{cbPost.Text}'), " +
+                "@phone, @date_hiring, " +
+                $"(SELECT id_gender FROM gender WHERE gender_name LIKE N'{cbGender.Text}'), " +
+                $"(SELECT id_department FROM Department WHERE department LIKE N'{cbDepartment.Text}') " +
+                ") ", sqlConnection);
+            //SqlCommand command = new SqlCommand($"INSERT INTO [Workers] " +
+            //    $"(surname, name, service_number, post, department, phone, date_hiring, gender) " +
+            //    $"VALUES (@surname, @name, @service_number, @post, @department, @phone, @date_hiring, @gender)", sqlConnection);
+            
 
             string date = dtpDateHired.Value.ToString("dd.MM.yyyy");
             DateTime parsed_date = DateTime.Parse(date);
-
-            //написать запрос на получение id департамента и id должности от названия
-
             command.Parameters.AddWithValue("surname", tbSurname.Text);
             command.Parameters.AddWithValue("name", tbName.Text);
             command.Parameters.AddWithValue("service_number", tbTabNum.Text);
-            //command.Parameters.AddWithValue("id_post", cbPost.Text);
+            //command.Parameters.AddWithValue("post", id_post);
+            //command.Parameters.AddWithValue("department", id_department);
             command.Parameters.AddWithValue("phone", tbPhone.Text);
             command.Parameters.AddWithValue("date_hiring", $"{parsed_date.Month}/{parsed_date.Day}/{parsed_date.Year}");
-            MessageBox.Show($"Добавлено {command.ExecuteNonQuery()} значений в таблицу {name}", 
-                $"Добавление в базу данных", 
+            //if (cbGender.Text == "Мужской")
+            //    command.Parameters.AddWithValue("gender", 1);
+            //else if (cbGender.Text == "Женский")
+            //    command.Parameters.AddWithValue("gender", 2);
+            //else
+            //    command.Parameters.AddWithValue("gender", 3);
+            MessageBox.Show($"Добавлено {command.ExecuteNonQuery()} значений в таблицу [Workers]",
+                $"Добавление в базу данных",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
+            //SqlCommand check_lastID = new SqlCommand($"SELECT LAST_INSERT_ID() FROM [Workers]");
+            //SqlDataReader reader_lastID = check_lastID.ExecuteReader();
+            //if (reader_lastID.HasRows)
+            //{
+            //    while (reader_lastID.Read())
+            //    {
+            //        MessageBox.Show(reader_lastID.ToString());
+            //    }
+            //    reader_lastID.Close();
+            //}
             //Update_workers();
         }
 
@@ -890,7 +990,7 @@ namespace WF.coursework
         private void Update_applications()
         {
             lbApplications.Items.Clear();
-            SqlCommand command = new SqlCommand($"SELECT * FROM [Application_for_vacation] WHERE id_status_application = {1}", sqlConnection);
+            SqlCommand command = new SqlCommand($"SELECT * FROM [Application_for_vacation] WHERE status_application = {1}", sqlConnection);
             
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
@@ -1260,38 +1360,17 @@ namespace WF.coursework
 
         private void btn_test_Click(object sender, EventArgs e)
         {
+            tbLogin.Text = "123";
+            tbPassword.Text = "321";
             tbSurname.Text = "Иванов";
             tbName.Text = "Иван";
-            tbTabNum.Text = "Иванович";
-            cbPost.Text = "1";
-            cbPost.Text = "1";
+            tbTabNum.Text = "123";
+            cbUserDepartment.SelectedIndex = 1;
+            cbPost.SelectedIndex = 1;
+            tbMail.Text = "test";
             tbPhone.Text = "1234";
             dtpDateHired.Value = new DateTime(2000, 01, 01, 0, 0, 0);
-            cbGender.Text = "Мужской";
-        }
-
-        private void Update_dgvApplication()
-        {
-            //try
-            //{
-            //    SqlCommand command = new SqlCommand("SELECT * FROM [Application_for_vacation] ORDER BY id_application", sqlConnection);
-            //    SqlDataReader reader = command.ExecuteReader();
-            //    //List<string[]> data = new List<string[]>();
-            //    if (reader.HasRows)
-            //    {
-            //        while (reader.Read())
-            //        {
-            //            //data.Add(new string[6]);
-
-            //            //data[data.Count - 1][0] = reader[0].ToString();
-            //            //dgwApplication.Rows.Add()
-            //            MessageBox.Show(reader.GetString(1));
-            //        }
-            //    }
-
-            //}
-            //catch (Exception ex) { MessageBox.Show(ex.Message); }
-
+            cbGender.SelectedIndex = 1;
         }
     }
 }

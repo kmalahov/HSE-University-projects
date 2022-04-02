@@ -77,6 +77,8 @@ namespace WF.coursework
             this.lbUsers = new System.Windows.Forms.ListBox();
             this.lblDepartment = new System.Windows.Forms.Label();
             this.tpChart = new System.Windows.Forms.TabPage();
+            this.lblProjectName = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panelGanttElement = new System.Windows.Forms.Panel();
             this.panelGantt = new System.Windows.Forms.Panel();
             this.panelMonth = new System.Windows.Forms.Panel();
@@ -94,7 +96,10 @@ namespace WF.coursework
             this.lblBalance = new System.Windows.Forms.Label();
             this.dgvApplication = new System.Windows.Forms.DataGridView();
             this.id_application = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_begin_vacation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.count_vacation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status_application = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Classification_vacation = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tpApplications = new System.Windows.Forms.TabPage();
             this.btnAppReject = new System.Windows.Forms.Button();
@@ -706,7 +711,10 @@ namespace WF.coursework
             // tpChart
             // 
             this.tpChart.BackColor = System.Drawing.SystemColors.Window;
+            this.tpChart.Controls.Add(this.lblProjectName);
+            this.tpChart.Controls.Add(this.comboBox1);
             this.tpChart.Controls.Add(this.panelGanttElement);
+            this.tpChart.Controls.Add(this.btnChangeGantt);
             this.tpChart.Controls.Add(this.button2);
             this.tpChart.Controls.Add(this.button1);
             this.tpChart.Controls.Add(this.btnAddProject);
@@ -716,13 +724,29 @@ namespace WF.coursework
             this.tpChart.TabIndex = 2;
             this.tpChart.Text = "График проектов";
             // 
+            // lblProjectName
+            // 
+            this.lblProjectName.AutoSize = true;
+            this.lblProjectName.Location = new System.Drawing.Point(116, 11);
+            this.lblProjectName.Name = "lblProjectName";
+            this.lblProjectName.Size = new System.Drawing.Size(47, 13);
+            this.lblProjectName.TabIndex = 20;
+            this.lblProjectName.Text = "Проект:";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(169, 8);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 19;
+            // 
             // panelGanttElement
             // 
             this.panelGanttElement.BackColor = System.Drawing.SystemColors.Window;
             this.panelGanttElement.Controls.Add(this.panelGantt);
-            this.panelGanttElement.Controls.Add(this.btnChangeGantt);
-            this.panelGanttElement.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelGanttElement.Location = new System.Drawing.Point(0, 0);
+            this.panelGanttElement.Location = new System.Drawing.Point(0, 35);
             this.panelGanttElement.Name = "panelGanttElement";
             this.panelGanttElement.Size = new System.Drawing.Size(931, 206);
             this.panelGanttElement.TabIndex = 18;
@@ -758,11 +782,11 @@ namespace WF.coursework
             // 
             // btnChangeGantt
             // 
-            this.btnChangeGantt.Location = new System.Drawing.Point(3, 3);
+            this.btnChangeGantt.Location = new System.Drawing.Point(8, 6);
             this.btnChangeGantt.Name = "btnChangeGantt";
-            this.btnChangeGantt.Size = new System.Drawing.Size(50, 23);
+            this.btnChangeGantt.Size = new System.Drawing.Size(83, 23);
             this.btnChangeGantt.TabIndex = 3;
-            this.btnChangeGantt.Text = "Месяц";
+            this.btnChangeGantt.Text = "Сотрудники";
             this.btnChangeGantt.UseVisualStyleBackColor = true;
             this.btnChangeGantt.Click += new System.EventHandler(this.btnChangeGantt_Click);
             // 
@@ -881,23 +905,45 @@ namespace WF.coursework
             this.dgvApplication.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvApplication.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id_application,
-            this.count_vacation});
-            this.dgvApplication.Location = new System.Drawing.Point(299, 0);
+            this.Date_begin_vacation,
+            this.count_vacation,
+            this.Status_application,
+            this.Classification_vacation});
+            this.dgvApplication.Location = new System.Drawing.Point(283, 0);
             this.dgvApplication.Name = "dgvApplication";
-            this.dgvApplication.Size = new System.Drawing.Size(632, 186);
+            this.dgvApplication.Size = new System.Drawing.Size(645, 186);
             this.dgvApplication.TabIndex = 0;
             // 
             // id_application
             // 
-            this.id_application.HeaderText = "Column1";
+            this.id_application.HeaderText = "ID Заявки";
             this.id_application.Name = "id_application";
             this.id_application.ReadOnly = true;
             // 
+            // Date_begin_vacation
+            // 
+            this.Date_begin_vacation.HeaderText = "Дата начала отпуска";
+            this.Date_begin_vacation.Name = "Date_begin_vacation";
+            this.Date_begin_vacation.ReadOnly = true;
+            // 
             // count_vacation
             // 
-            this.count_vacation.HeaderText = "Column1";
+            this.count_vacation.HeaderText = "Количество дней";
             this.count_vacation.Name = "count_vacation";
             this.count_vacation.ReadOnly = true;
+            // 
+            // Status_application
+            // 
+            this.Status_application.HeaderText = "Статус заявки";
+            this.Status_application.Name = "Status_application";
+            this.Status_application.ReadOnly = true;
+            // 
+            // Classification_vacation
+            // 
+            this.Classification_vacation.HeaderText = "Вид отпуска";
+            this.Classification_vacation.Name = "Classification_vacation";
+            this.Classification_vacation.ReadOnly = true;
+            this.Classification_vacation.Width = 200;
             // 
             // tabControl
             // 
@@ -1385,6 +1431,7 @@ namespace WF.coursework
             this.gbDepartment.ResumeLayout(false);
             this.gbDepartment.PerformLayout();
             this.tpChart.ResumeLayout(false);
+            this.tpChart.PerformLayout();
             this.panelGanttElement.ResumeLayout(false);
             this.panelGantt.ResumeLayout(false);
             this.tpMyVacation.ResumeLayout(false);
@@ -1470,8 +1517,6 @@ namespace WF.coursework
         private courseworkDataSetTableAdapters.Application_for_vacationTableAdapter application_for_vacationTableAdapter;
         private System.Windows.Forms.BindingSource fKVacationsApplicationforvacationBindingSource;
         private courseworkDataSetTableAdapters.VacationsTableAdapter vacationsTableAdapter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_application;
-        private System.Windows.Forms.DataGridViewTextBoxColumn count_vacation;
         private System.Windows.Forms.TabPage tpApplications;
         private System.Windows.Forms.GroupBox gbApplicationInfo;
         private System.Windows.Forms.TableLayoutPanel tlpApplicationInfo;
@@ -1524,5 +1569,12 @@ namespace WF.coursework
         private System.Windows.Forms.Panel panelMonth;
         private System.Windows.Forms.Panel panelYear;
         private System.Windows.Forms.Panel panelGanttElement;
+        private System.Windows.Forms.Label lblProjectName;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_application;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date_begin_vacation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn count_vacation;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status_application;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Classification_vacation;
     }
 }

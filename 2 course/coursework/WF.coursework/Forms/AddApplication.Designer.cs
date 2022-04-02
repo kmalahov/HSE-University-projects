@@ -52,6 +52,7 @@ namespace WF.coursework
             this.mcPeriodStart.MaxSelectionCount = 1;
             this.mcPeriodStart.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.mcPeriodStart.Name = "mcPeriodStart";
+            this.mcPeriodStart.ShowTodayCircle = false;
             this.mcPeriodStart.TabIndex = 13;
             this.mcPeriodStart.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcPeriodStart_DateSelected);
             // 
@@ -81,6 +82,7 @@ namespace WF.coursework
             // 
             this.mcPeriodEnd.Location = new System.Drawing.Point(194, 63);
             this.mcPeriodEnd.Name = "mcPeriodEnd";
+            this.mcPeriodEnd.ShowTodayCircle = false;
             this.mcPeriodEnd.TabIndex = 20;
             this.mcPeriodEnd.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.mcPeriodEnd_DateSelected);
             // 
@@ -156,9 +158,19 @@ namespace WF.coursework
             0,
             0,
             0});
+            this.udDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.udDuration.Name = "udDuration";
             this.udDuration.Size = new System.Drawing.Size(78, 20);
             this.udDuration.TabIndex = 25;
+            this.udDuration.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.udDuration.ValueChanged += new System.EventHandler(this.udDuration_ValueChanged);
             // 
             // chbChange
